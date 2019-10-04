@@ -1,20 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import UserSignup from './UserSignup'
+
+
 
 //Todo: Continue developing user signup form
-function App() {
-  return (
-    <div>
-      <form>
-        <label>
-          Name:
-          <input type="text" name="name" />
-        </label>
-        <input type="submit" value="submit" />
-      </form>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <UserSignup />
+      </div>
+    )
+  }
 }
-
 export default App;
