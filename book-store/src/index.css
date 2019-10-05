@@ -8,6 +8,12 @@
     color: black;
     cursor: pointer;
 }
+.book-icon {
+    height: inherit;
+}
+#book-button {
+    height: inherit;
+}
 .card{
     width: 300px;
 }
@@ -35,4 +41,47 @@
 }
 .item-desc{
     align-self:center;
+}
+
+
+
+.modal {
+    background: silver;
+    position: absolute;
+    float: left;
+    left: 50%;
+    top: 50%;
+    height:fit-content;
+    width: 96%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    border-radius: 8px;
+  }
+.modal .modal-footer{
+    background: none;
+    text-align: center;
+}
+.modal-backdrop
+{
+    opacity:0.5 !important;
+}
+#book-detail-cover{
+    max-width: 25%;
+    height: auto;
+}
+#book-detail-title {
+    width: 70%;
+    float: right;
+    padding: 0 15px; 
+}
+#book-detail-author{
+    margin-top: -16px;
+    width:70%;
+    float: right;
+    padding: 0 15px; 
+}
+#book-detail-summary{
+    width: 70%;
+    padding: 0 15px; 
+    float: right;
 }
