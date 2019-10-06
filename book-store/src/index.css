@@ -46,7 +46,7 @@
 
 
 .modal {
-    background: silver;
+    background: peachpuff;
     position: absolute;
     float: left;
     left: 50%;
@@ -56,6 +56,9 @@
     transform: translate(-50%, -50%);
     z-index: 10;
     border-radius: 8px;
+    border-style: solid;
+    border-width: 8px;
+    border-color: grey;
   }
 .modal .modal-footer{
     background: none;
@@ -68,20 +71,24 @@
 #book-detail-cover{
     max-width: 25%;
     height: auto;
+    padding:8px;
+    background: white;
+    border-color: grey;
+    border-style: solid;
 }
 #book-detail-title {
-    width: 70%;
+    width: 73%;
     float: right;
     padding: 0 15px; 
 }
 #book-detail-author{
     margin-top: -16px;
-    width:70%;
+    width:73%;
     float: right;
     padding: 0 15px; 
 }
 #book-detail-summary{
-    width: 70%;
+    width: 73%;
     padding: 0 15px; 
     float: right;
 }
