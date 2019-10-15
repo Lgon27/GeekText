@@ -19,9 +19,7 @@ app.use('/post', postRoutes)
 
 //Sample route 
 //When we visit localhost:3000/ we will be greeted by the sentence "geektext home"
-app.get('/', (req, res) => {
-    res.send('geektext home');
-})
+
 
 //Connects our application to our mongoDB cluster
 mongoose.connect(process.env.DB_CONNECT_URL, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
