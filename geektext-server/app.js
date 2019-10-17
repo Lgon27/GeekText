@@ -2,10 +2,11 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose'); //Used to interact with our mongoDB Database
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 //Imports dotenv file
 require('dotenv/config')
-
+app.use(cors());
 app.use(bodyParser.json());
 
 //Middleware to import get routes
