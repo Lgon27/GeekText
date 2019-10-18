@@ -17,19 +17,29 @@ app.use('/post', postRoutes)
 
 
 
-//Sample route 
+//Sample route
 //When we visit localhost:3000/ we will be greeted by the sentence "geektext home"
-app.get('/', (req, res) => {
-    res.send('geektext home');
-})
 
-//Connects our application to our mongoDB cluster
-mongoose.connect(process.env.DB_CONNECT_URL, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
-    if (err)
-        throw err
-    else
-        console.log('Connected to mongoDB Cluster')
-})
+
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://thoan:test27@geektext-vugtp.mongodb.net/admin?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+  const collection = client.db("bookstore").collection("reviews");
+  // perform actions on the collection object
+  var query = { bookId: 123 };
+  collection.find(query).toArray(function(err,result) {
+    if (err) throw err;
+    console.log(result);
+
+    // Send data to client
+    app.get('/api/reviews', (req, res) => {
+        res.send(result);
+    })
+  });
+  client.close();
+});
+
 
 //App is listen to requests on port 3000
 app.listen(3000, () => {
