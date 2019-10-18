@@ -28,6 +28,7 @@ app.use('/post', postRoutes)
 //Sample route
 //When we visit localhost:3000/ we will be greeted by the sentence "geektext home"
 
+//process.env.DB_CONNECT_URL
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://thoan:test27@geektext-vugtp.mongodb.net/admin?retryWrites=true&w=majority";

@@ -9,11 +9,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.7.5",
-<<<<<<< HEAD
     "nodemon": "^1.19.3"
-=======
-    "nodemon": "^1.19.4"
->>>>>>> fcda78f5bcdc32df4bdec2c1668c3bd466210b0c
   },
   "scripts": {
     "start": "nodemon app.js"
