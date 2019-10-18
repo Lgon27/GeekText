@@ -18,7 +18,7 @@ app.use('/post', postRoutes)
 
 
 
-//Sample route 
+//Sample route
 //When we visit localhost:3000/ we will be greeted by the sentence "geektext home"
 
 

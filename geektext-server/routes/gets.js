@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const Users = require('../models/users')
 const Books = require('../models/books')
+const Reviews = require('../models/userReviews')
 
 
 router.get('/users', async (req, res) => {
@@ -25,7 +26,14 @@ router.get('/books', async (req, res) => {
     }
 })
 
-
+router.get('/reviews', async (req, res) => {
+    try {
+         const userReview = await Reviews.find();
+         res.json(userReview)
+    } catch (err) {
+        res.json({ message: err });
+    }
+})
 
 
 module.exports = router;

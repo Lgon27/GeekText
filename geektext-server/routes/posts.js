@@ -5,6 +5,7 @@ const router = express.Router();
 
 const userSchema = require('../models/users')
 const bookSchema = require('../models/books')
+const reviewSchema = require('../models/userReviews')
 
 router.post('/user', (req, res) => {
     const user = new userSchema({
@@ -37,12 +38,29 @@ router.post('/books', (req, res) => {
             publish_date: req.body.publish_date,
             author_bio: req.body.author_bio
         })
-    
+
         book.save().then(data => {
            res.json(data);
         }).catch(err => {
             res.json({ message: err });
         })
+
+})
+
+router.post('/reviews', (req, res) => {
+    const userReview = new userReviewSchema({
+        review: req.body.review,
+        rating: req.body.rating,
+        userName: req.body.userName,
+        bookTitle: req.body.bookTitle
+    })
+
+    userReview.save().then(data => {
+        res.json(data);
+    }).catch(err => {
+        res.json({ message: err });
+    })
+
 
 })
 
