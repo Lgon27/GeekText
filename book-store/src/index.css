@@ -8,6 +8,12 @@
     color: black;
     cursor: pointer;
 }
+.book-icon {
+    height: inherit;
+}
+#book-button {
+    height: inherit;
+}
 .card{
     width: 300px;
 }
@@ -36,3 +42,4 @@
 .item-desc{
     align-self:center;
 }
+

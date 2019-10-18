@@ -32,7 +32,11 @@ class UserReview extends Component {
       bookTitle: this.state.bookTitle
     };
 
+<<<<<<< HEAD
     Axios.post('./reviews', {userReview})
+=======
+    Axios.post('localhost:3000/reviews/', {userReview})
+>>>>>>> fcda78f5bcdc32df4bdec2c1668c3bd466210b0c
       .then(res => {
         console.log(res);
         console.log(res.data);

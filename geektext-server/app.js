@@ -6,7 +6,6 @@ const cors = require('cors');
 
 //Imports dotenv file
 require('dotenv/config')
-
 app.use(cors());
 app.use(bodyParser.json());
 
