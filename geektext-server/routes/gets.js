@@ -1,10 +1,10 @@
 //contains api routes for get http requests
 const express = require('express');
 const router = express.Router();
+
 const Users = require('../models/users')
 const Books = require('../models/books')
 const Reviews = require('../models/userReviews')
-
 
 router.get('/users', async (req, res) => {
     try {
@@ -34,6 +34,5 @@ router.get('/reviews', async (req, res) => {
         res.json({ message: err });
     }
 })
-
 
 module.exports = router;
