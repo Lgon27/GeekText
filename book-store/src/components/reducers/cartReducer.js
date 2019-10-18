@@ -4,7 +4,7 @@ import Book3 from '../../images/Book3.jpg'
 import Book4 from '../../images/Book4.jpg'
 import Book5 from '../../images/Book5.jpg'
 import Book6 from '../../images/Book6.jpg'
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,ADD_SHIPPING } from '../actions/action-types/cart-actions'
+import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,ADD_SHIPPING, SAVE_LATER, ADD_BACK, DELETE_ITEM } from '../actions/action-types/cart-actions'
 
 
 const initState = {
@@ -17,6 +17,7 @@ const initState = {
         {id:6,title:'Peter Pan', desc: "By J.M. Barrie",price:6.50,img: Book6}
     ],
     addedItems:[],
+    savedItems:[],
     total: 0
 
 }
@@ -60,6 +61,44 @@ const cartReducer= (state = initState,action)=>{
           addedItems: new_items,
           total: newTotal
       }
+  }
+  //Remove item from cart and include it below Save Later. Update Total.
+  if(action.type === SAVE_LATER) {
+    let savedItem = state.addedItems.find(item=> action.id === item.id)
+    let itemToRemove= state.addedItems.find(item=> action.id === item.id)
+    let new_items = state.addedItems.filter(item=> action.id !== item.id)
+
+    let newTotal = state.total - (itemToRemove.price * itemToRemove.quantity )
+    return{
+        ...state,
+        savedItems: [...state.savedItems, savedItem],
+        addedItems: new_items,
+        total: newTotal
+    }
+  }
+  //Remove item from Save Later and add back to cart. Update Total.
+  if(action.type === ADD_BACK) {
+    let itemToRemove= state.savedItems.find(item=> action.id === item.id)
+    let new_items = state.savedItems.filter(item=> action.id !== item.id)
+    let readdItem = state.savedItems.find(item=> action.id === item.id)
+
+    let newTotal = state.total + (itemToRemove.price * itemToRemove.quantity )
+    return{
+        ...state,
+        addedItems: [...state.addedItems, readdItem],
+        savedItems: new_items,
+        total: newTotal
+    }
+  }
+  if(action.type === DELETE_ITEM) {
+    let itemToRemove= state.savedItems.find(item=> action.id === item.id)
+    let new_items = state.savedItems.filter(item=> action.id !== item.id)
+
+    console.log(itemToRemove)
+    return{
+        ...state,
+        savedItems: new_items
+    }
   }
   //INSIDE CART COMPONENT
   if(action.type=== ADD_QUANTITY){
