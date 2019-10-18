@@ -2,10 +2,12 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose'); //Used to interact with our mongoDB Database
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 //Imports dotenv file
 require('dotenv/config')
 
+app.use(cors());
 app.use(bodyParser.json());
 
 //Middleware to import get routes
@@ -15,7 +17,14 @@ app.use('/get', getRoutes)
 const postRoutes = require('./routes/posts');
 app.use('/post', postRoutes)
 
-
+//Connects our application to our mongoDB cluster
+// const uri = "mongodb+srv://thoan:test27@geektext-vugtp.mongodb.net/admin?retryWrites=true&w=majority";
+// mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+//     if (err)
+//         throw err
+//     else
+//         console.log('Connected to mongoDB Cluster')
+// })
 
 //Sample route
 //When we visit localhost:3000/ we will be greeted by the sentence "geektext home"
@@ -23,7 +32,7 @@ app.use('/post', postRoutes)
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://thoan:test27@geektext-vugtp.mongodb.net/admin?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   const collection = client.db("bookstore").collection("reviews");
   // perform actions on the collection object

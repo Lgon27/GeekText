@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const userSchema = require('../models/users')
+const reviewSchema = require('../models/userReviews')
 
 router.post('/user', (req, res) => {
     const user = new userSchema({
@@ -20,6 +21,23 @@ router.post('/user', (req, res) => {
     })
 
     user.save().then(data => {
+        res.json(data);
+    }).catch(err => {
+        res.json({ message: err });
+    })
+
+
+})
+
+router.post('/reviews', (req, res) => {
+    const userReview = new userReviewSchema({
+        review: req.body.review,
+        rating: req.body.rating,
+        userName: req.body.userName,
+        bookTitle: req.body.bookTitle
+    })
+
+    userReview.save().then(data => {
         res.json(data);
     }).catch(err => {
         res.json({ message: err });
