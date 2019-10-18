@@ -17,8 +17,7 @@ const postRoutes = require('./routes/posts');
 app.use('/post', postRoutes)
 
 //Connects our application to our mongoDB cluster
-// const uri = "mongodb+srv://thoan:test27@geektext-vugtp.mongodb.net/admin?retryWrites=true&w=majority";
-// mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+// mongoose.connect(process.env.DB_CONNECT_URL, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
 //     if (err)
 //         throw err
 //     else
@@ -28,11 +27,8 @@ app.use('/post', postRoutes)
 //Sample route
 //When we visit localhost:3000/ we will be greeted by the sentence "geektext home"
 
-//process.env.DB_CONNECT_URL
-
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://thoan:test27@geektext-vugtp.mongodb.net/admin?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const client = new MongoClient(process.env.DB_CONNECT_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   const collection = client.db("bookstore").collection("reviews");
   // perform actions on the collection object
