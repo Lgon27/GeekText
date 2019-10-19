@@ -13,7 +13,7 @@ class UserReview extends Component {
       rating: 0,
       avgRating: 0,
       review: "",
-      userName: "",
+      user_id: "",
       bookTitle: "",
       renderedResponse: []
     };
@@ -28,7 +28,7 @@ class UserReview extends Component {
     const userReview = {
       rating: this.state.rating,
       review: this.state.review,
-      userName: this.state.userName,
+      user_id: this.state.user_id,
       bookTitle: this.state.bookTitle
     };
 
@@ -103,7 +103,7 @@ class UserReview extends Component {
       <form onSubmit={this.handleSubmit}>
 
           <label>Username: </label>
-          <input name="userName" type="text" value={this.state.userName} onChange={this.handleInputChange} /><br/>
+          <input name="user_id" type="text" value={this.state.user_id} onChange={this.handleInputChange} /><br/>
           <label>Book Title: </label>
           <input name="bookTitle" type="text" value={this.state.bookTitle} onChange={this.handleInputChange} /><br/>
           <br/>

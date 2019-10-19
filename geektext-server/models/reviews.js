@@ -14,7 +14,7 @@ const userReviewSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    userName: {
+    user_id: {
         type: String,
         required: true
     },

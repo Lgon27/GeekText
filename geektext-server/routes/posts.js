@@ -48,24 +48,24 @@ router.post('/books', (req, res) => {
 })
 
 router.post('/reviews', (req, res) => {
-    console.log(req.body.review+"\n"+
-                req.body.rating+"\n"+
-                req.body.userName+"\n"+
-                req.body.bookTitle+"\n");
+    // console.log(req.body.review+"\n"+
+    //             req.body.rating+"\n"+
+    //             req.body.user_id+"\n"+
+    //             req.body.bookTitle+"\n");
 
     const userReview = new userReviewSchema({
         rating: req.body.rating,
         review: req.body.review,
-        userName: req.body.userName,
+        user_id: req.body.user_id,
         bookTitle: req.body.bookTitle
     })
 
     console.log(userReview);
 
-    // TODO: THIS IS WHERE IT IS FAILING
     userReview.save().then(data => {
         console.log("Success\n");
         res.json(data);
+        // TODO: REFRESH UI!
     }).catch(err => {
         console.log("Error\n");
         res.json({ message: err });
