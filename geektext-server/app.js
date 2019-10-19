@@ -7,7 +7,9 @@ const cors = require('cors');
 //Imports dotenv file
 require('dotenv/config')
 app.use(cors());
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //Middleware to import get routes
 const getRoutes = require('./routes/gets');

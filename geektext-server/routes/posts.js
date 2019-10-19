@@ -5,7 +5,7 @@ const router = express.Router();
 
 const userSchema = require('../models/users')
 const bookSchema = require('../models/books')
-const reviewSchema = require('../models/userReviews')
+const userReviewSchema = require('../models/reviews')
 
 router.post('/user', (req, res) => {
     const user = new userSchema({
@@ -48,16 +48,26 @@ router.post('/books', (req, res) => {
 })
 
 router.post('/reviews', (req, res) => {
+    console.log(req.body.review+"\n"+
+                req.body.rating+"\n"+
+                req.body.userName+"\n"+
+                req.body.bookTitle+"\n");
+
     const userReview = new userReviewSchema({
-        review: req.body.review,
         rating: req.body.rating,
+        review: req.body.review,
         userName: req.body.userName,
         bookTitle: req.body.bookTitle
     })
 
+    console.log(userReview);
+
+    // TODO: THIS IS WHERE IT IS FAILING
     userReview.save().then(data => {
+        console.log("Success\n");
         res.json(data);
     }).catch(err => {
+        console.log("Error\n");
         res.json({ message: err });
     })
 

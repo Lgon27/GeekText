@@ -32,7 +32,7 @@ class UserReview extends Component {
       bookTitle: this.state.bookTitle
     };
 
-    Axios.post('localhost:3000/reviews/', {userReview})
+    Axios.post('http://localhost:3000/post/reviews/', userReview)
       .then(res => {
         console.log(res);
         console.log(res.data);
