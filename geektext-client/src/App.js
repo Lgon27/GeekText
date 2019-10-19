@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import UserSignup from './UserSignup'
+import NavBar from './NavBar'
+import HomePage from './HomePage'
 
 
 
@@ -10,7 +12,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <UserSignup />
+        <NavBar />
       </div>
     )
   }
