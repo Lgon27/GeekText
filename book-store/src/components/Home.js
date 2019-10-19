@@ -14,6 +14,11 @@ class Home extends Component{
     handleClick = (id)=>{
         this.props.addToCart(id); 
     }
+    async componentDidMount() {
+        const response = await fetch('http://localhost:3000/get/books');
+        const json = await response.json();
+        console.log(json);
+    }
 
     render(){
         
