@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { addToCart } from './actions/cartActions'
 import {Button} from 'react-bootstrap';
-import {BookDetails} from './BookDetails.js';
 
 class Home extends Component{
     
     constructor(props){
         super(props);
-        this.state = {books:[], bookDetailsShow: false}
+        this.state = {books:[] }
     }
 
     handleClick = (id)=>{
@@ -21,9 +20,6 @@ class Home extends Component{
     }
 
     render(){
-        
-        let bookDetailsClose =() => this.setState({bookDetailsShow: false})
-
 
         let itemList = this.props.items.map(item=>{
             return(
@@ -55,10 +51,6 @@ class Home extends Component{
                 <div className="box">
                     {itemList}
                 </div>
-                <BookDetails
-                        show = {this.state.bookDetailsShow}
-                        onHide = {bookDetailsClose}>
-                </BookDetails>
             </div>
         )
     }
