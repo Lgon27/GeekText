@@ -2,7 +2,11 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose'); //Used to interact with our mongoDB Database
 const bodyParser = require('body-parser');
+const cors = require('cors')
 
+app.use(cors({
+    "origin": "http://localhost:3001"
+}))
 //Imports dotenv file
 require('dotenv/config')
 
