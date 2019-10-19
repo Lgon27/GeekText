@@ -34,7 +34,7 @@ const client = new MongoClient(process.env.DB_CONNECT_URL, { useNewUrlParser: tr
 client.connect(err => {
   const collection = client.db("bookstore").collection("reviews");
   // perform actions on the collection object
-  var query = { bookId: 123 };
+  var query = { bookTitle: "Gone With The Wind" };
   collection.find(query).toArray(function(err,result) {
     if (err) throw err;
     console.log(result);
