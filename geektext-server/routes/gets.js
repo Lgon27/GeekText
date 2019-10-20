@@ -28,7 +28,7 @@ router.get('/books', async (req, res) => {
 
 router.get('/reviews', async (req, res) => {
     try {
-         const userReviews = await Reviews.find();
+         const userReviews = await Reviews.find().sort({$natural:-1});
          res.json(userReviews)
     } catch (err) {
         res.json({ message: err });

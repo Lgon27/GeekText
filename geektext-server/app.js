@@ -29,23 +29,10 @@ mongoose.connect(process.env.DB_CONNECT_URL, { useNewUrlParser: true, useUnified
 //Sample route
 //When we visit localhost:3000/ we will be greeted by the sentence "geektext home"
 
-const MongoClient = require('mongodb').MongoClient;
-const client = new MongoClient(process.env.DB_CONNECT_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
-  const collection = client.db("bookstore").collection("reviews");
-  // perform actions on the collection object
-  var query = { bookTitle: "Gone With The Wind" };
-  collection.find(query).toArray(function(err,result) {
-    if (err) throw err;
-    console.log(result);
-
-    // Send data to client
-    app.get('/api/reviews', (req, res) => {
-        res.send(result);
-    })
-  });
-  client.close();
-});
+//Populate reviews! (default)
+// app.get('/get/reviews', (req, res) => {
+//     res.send(result);
+// })
 
 
 //App is listen to requests on port 3000

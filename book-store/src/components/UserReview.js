@@ -36,6 +36,11 @@ class UserReview extends Component {
       .then(res => {
         console.log(res);
         console.log(res.data);
+
+        this.getResponse().then(res => {
+          const someData = res;
+          this.setState({renderedResponse: someData});
+        })
       })
   }
 
@@ -50,8 +55,9 @@ class UserReview extends Component {
   }
 
   getResponse = async() => {
-    const response = await fetch('/api/reviews');
+    const response = await fetch('/get/reviews');
     const body = await response.json();
+
     if ( response.status !== 200) throw Error(body.message);
 
     return body;
@@ -97,7 +103,7 @@ class UserReview extends Component {
         starDimension='30px'
       />
 
-      <h3>Reader Review Input:</h3>
+      <h5>Add Your Review!</h5>
 
       <div>
       <form onSubmit={this.handleSubmit}>
