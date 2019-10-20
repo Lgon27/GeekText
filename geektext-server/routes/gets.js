@@ -4,7 +4,7 @@ const router = express.Router();
 
 const Users = require('../models/users')
 const Books = require('../models/books')
-const Reviews = require('../models/userReviews')
+const Reviews = require('../models/reviews')
 
 router.get('/users', async (req, res) => {
     try {
@@ -28,8 +28,8 @@ router.get('/books', async (req, res) => {
 
 router.get('/reviews', async (req, res) => {
     try {
-         const userReview = await Reviews.find();
-         res.json(userReview)
+         const userReviews = await Reviews.find().sort({$natural:-1});
+         res.json(userReviews)
     } catch (err) {
         res.json({ message: err });
     }

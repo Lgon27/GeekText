@@ -13,7 +13,7 @@ class UserReview extends Component {
       rating: 0,
       avgRating: 0,
       review: "",
-      userName: "",
+      user_id: "",
       bookTitle: "",
       renderedResponse: []
     };
@@ -28,14 +28,19 @@ class UserReview extends Component {
     const userReview = {
       rating: this.state.rating,
       review: this.state.review,
-      userName: this.state.userName,
+      user_id: this.state.user_id,
       bookTitle: this.state.bookTitle
     };
 
-    Axios.post('localhost:3000/reviews/', {userReview})
+    Axios.post('http://localhost:3000/post/reviews/', userReview)
       .then(res => {
         console.log(res);
         console.log(res.data);
+
+        this.getResponse().then(res => {
+          const someData = res;
+          this.setState({renderedResponse: someData});
+        })
       })
   }
 
@@ -50,8 +55,9 @@ class UserReview extends Component {
   }
 
   getResponse = async() => {
-    const response = await fetch('/api/reviews');
+    const response = await fetch('/get/reviews');
     const body = await response.json();
+
     if ( response.status !== 200) throw Error(body.message);
 
     return body;
@@ -97,13 +103,13 @@ class UserReview extends Component {
         starDimension='30px'
       />
 
-      <h3>Reader Review Input:</h3>
+      <h5>Add Your Review!</h5>
 
       <div>
       <form onSubmit={this.handleSubmit}>
 
           <label>Username: </label>
-          <input name="userName" type="text" value={this.state.userName} onChange={this.handleInputChange} /><br/>
+          <input name="user_id" type="text" value={this.state.user_id} onChange={this.handleInputChange} /><br/>
           <label>Book Title: </label>
           <input name="bookTitle" type="text" value={this.state.bookTitle} onChange={this.handleInputChange} /><br/>
           <br/>
