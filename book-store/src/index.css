@@ -19,7 +19,8 @@
 }
 .card .card-image .card-title{
     color: black;
-    font-weight: 400
+    font-weight: 400;
+    max-height: 400px;
 }
 .cart{
     margin-top:40px;
