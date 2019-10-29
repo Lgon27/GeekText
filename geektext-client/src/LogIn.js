@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import TextField from '@material-ui/core/TextField'
+import UserManagement from './UserManagement'
 
 class LogIn extends Component {
     constructor(props) {
@@ -56,7 +57,7 @@ class LogIn extends Component {
 
         if (this.state.loginSuccessful == true) {
             return (
-                <h1>Logged in</h1>
+                <UserManagement loginID={this.state.loginID} />
             )
         }
         else {

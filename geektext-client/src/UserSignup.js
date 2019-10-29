@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import TextField from '@material-ui/core/TextField'
 import './myStyles.css'
+import LogIn from './LogIn'
 
 
 
@@ -21,7 +22,8 @@ class UserSignup extends Component {
             shippingAddress: '',
             creditCardNumber: '',
             creditCardCCV: -1,
-            creditCardExpirationDate: Date.now()
+            creditCardExpirationDate: Date.now(),
+            signedUp: false
         }
 
 
@@ -60,6 +62,9 @@ class UserSignup extends Component {
         let creditCardExpirationDate = this.state.creditCardExpirationDate;
 
         this.createUser(loginID, loginPassword, name, emailAddress, homeAddress, nickname, shippingAddress, creditCardNumber, creditCardCCV, creditCardExpirationDate)
+        this.setState({
+            signedUp: true
+        })
     }
 
     createUser(loginID, loginPassword, name, emailAddress, homeAddress, nickname, shippingAddress, creditCardNumber, creditCardCCV, creditCardExpirationDate) {
@@ -166,49 +171,59 @@ class UserSignup extends Component {
 
 
     render() {
-        return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <h3>User Information</h3>
-                    <div>
-                        <span className = 'textform'>
-                            <TextField label="Login ID" onChange={this.handleLoginIDChange} />
-                        </span>
-                        <span className = 'textform'>
-                            <TextField label="Password" type="password" onChange={this.handlePasswordChange} />
-                        </span>
-                        <span className = 'textform'>
-                            <TextField label="Confirm Password" type="password" onChange={this.handleConfirmChange} />
-                        </span>
-                    </div>
-                    <div>
-                        <span className = 'textform'>
-                            <TextField label="First Name" onChange={this.handleFirstNameChange} />
-                        </span>
-                        <span className = 'textform'>
-                            <TextField label="Last Name" onChange={this.handleLastNameChange} />
-                        </span>
-                        <span className = 'textform'>
-                            <TextField label="Nickname" onChange={this.handleNicknameChange} />
-                        </span>
-                    </div>
-                    <div>
-                        <span className = 'textform'>
-                            <TextField label="Email Address" type="email" onChange={this.handleEmailChange} />
-                        </span>
-                        <span className = 'textform'>
-                             <TextField label="Home Address" onChange={this.handleAddressChange} />
-                        </span>
-                    </div>
 
-                    
-                    
+        if (this.state.signedUp == false) {
+            return (
+                <div>
+                    <form onSubmit={this.handleSubmit}>
+                        <h3>User Information</h3>
+                        <div>
+                            <span className='textform'>
+                                <TextField label="Login ID" onChange={this.handleLoginIDChange} />
+                            </span>
+                            <span className='textform'>
+                                <TextField label="Password" type="password" onChange={this.handlePasswordChange} />
+                            </span>
+                            <span className='textform'>
+                                <TextField label="Confirm Password" type="password" onChange={this.handleConfirmChange} />
+                            </span>
+                        </div>
+                        <div>
+                            <span className='textform'>
+                                <TextField label="First Name" onChange={this.handleFirstNameChange} />
+                            </span>
+                            <span className='textform'>
+                                <TextField label="Last Name" onChange={this.handleLastNameChange} />
+                            </span>
+                            <span className='textform'>
+                                <TextField label="Nickname" onChange={this.handleNicknameChange} />
+                            </span>
+                        </div>
+                        <div>
+                            <span className='textform'>
+                                <TextField label="Email Address" type="email" onChange={this.handleEmailChange} />
+                            </span>
+                            <span className='textform'>
+                                <TextField label="Home Address" onChange={this.handleAddressChange} />
+                            </span>
+                        </div>
+                        <div>
+                            <input type="submit" value="Sign Up" />
+                        </div>
+
+                    </form>
+                </div>
+            )
+        }
+        else {
+            return (
+                <div>
+                    <LogIn />
+                </div>
+            )
+        }
 
 
-
-                </form>
-            </div>
-        )
     }
 }
 

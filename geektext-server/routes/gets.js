@@ -41,6 +41,15 @@ router.get('/billing/:loginID', async (req, res) => {
     }
 })
 
+router.get('/specificUser/:loginID', async (req, res) => {
+    try {
+        const user = await users.find({ "loginID": req.params.loginID })
+        res.json(user)
+    } catch (err) {
+        res.json({ message: err });
+    }
+})
+
 
 
 
