@@ -41,22 +41,6 @@ const userSchema = mongoose.Schema({
     nickname: {
         type: String,
         required: true
-    },
-    shippingAddress: {
-        type: String,
-        required: true
-    },
-    creditCardNumber: {
-        type: String,
-        required: true
-    },
-    creditCardCCV: {
-        type: Number,
-        required: true
-    },
-    creditCardExpirationDate: {
-        type: Number,
-        required: true
     }
 })
 

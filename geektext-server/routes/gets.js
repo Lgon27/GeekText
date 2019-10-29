@@ -2,7 +2,9 @@
 const express = require('express');
 const router = express.Router();
 const users = require('../models/users')
+const billing = require('../models/billing')
 
+//returns all users in the db
 router.get('/users', async (req, res) => {
     try {
         const user = await users.find();
@@ -12,6 +14,7 @@ router.get('/users', async (req, res) => {
     }
 })
 
+//login check
 router.get('/users/:loginID/:loginPassword', async (req, res) => {
     try {
         const userData = await users.find({ "loginID": req.params.loginID })
@@ -28,6 +31,17 @@ router.get('/users/:loginID/:loginPassword', async (req, res) => {
     }
 
 })
+
+router.get('/billing/:loginID', async (req, res) => {
+    try {
+        const bill = await billing.find({ "loginID": req.params.loginID })
+        res.json(bill)
+    } catch (err) {
+        res.json({ message: err });
+    }
+})
+
+
 
 
 
