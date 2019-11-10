@@ -13,11 +13,8 @@ import Book4 from '../images/Book4.jpg'
 import Book5 from '../images/Book5.jpg'
 import Book6 from '../images/Book6.jpg'
 
-// TODO: IF user is logged in, get userName for form input
+// TODO: Retrieve User ID and User Display Name
 // TODO: Check if USER has purchased the books -- Hide FORM if they haven't
-// TODO: Allow for ANONYMOUS review posts
-// TODO: Allow USERS to use their NICKNAME
-// TODO: If bookTitle does not exist, display ERROR
 
 class UserReview extends Component {
 
@@ -128,7 +125,7 @@ class UserReview extends Component {
     imageMap["Peter Pan"] = Book6;
 
     // TODO: Set this flag based off user purchase
-    const displayForm = false;
+    const displayForm = true;
 
     return (
       <div align='center'>
@@ -154,14 +151,23 @@ class UserReview extends Component {
 
     { displayForm ?
       <div>
+      <hr style={{color:'#ff5959',
+                  backgroundColor:'#ff5959',
+                  height: '5px',
+                  border: 0 }}/>
       <h5>Add Your Review!</h5>
       <br/>
 
       <div style={formStyle}>
         <form onSubmit={this.handleSubmit}>
 
-            <label>Username: </label>
-            <input name="user_id" type="text" value={this.state.user_id} onChange={this.handleInputChange} /><br/>
+            <label>Username for Post: </label>
+            <select style={{ display: 'block' }} name="user_id" value={this.state.user_id} onChange={this.handleInputChange}>
+              <option value="">-- Select Display Name</option>
+              <option value="thoan006">User ID: thoan006</option>
+              <option value="Trinh Hoang">User Name: Trinh Hoang</option>
+              <option value="Anonymous">Anonymous Post</option>
+            </select>
             <br/>
             <StarRatings
               rating={this.state.rating}

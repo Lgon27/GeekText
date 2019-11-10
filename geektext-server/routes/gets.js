@@ -33,6 +33,17 @@ router.get('/reviews', async (req, res) => {
         // console.log(bookDisplayName)
 
          let userReviews = await Reviews.find({bookTitle:bookDisplayName}).sort({$natural:-1});
+
+        // If no reviews have been left
+         if (userReviews.length == 0) {
+           userReviews = [ { _id: 0,
+                              rating: 0,
+                              review: 'There is nothing here yet. Be the first to leave a review!',
+                              user_id: 'GeekText Staff',
+                              bookTitle: bookDisplayName,
+                              __v: 0 } ]
+         }
+
          res.json(userReviews)
     } catch (err) {
         res.json({ message: err });
