@@ -6,6 +6,18 @@ import StarRatings from 'react-star-ratings';
 import { throwStatement } from '@babel/types';
 import queryString from 'query-string';
 
+import Book1 from '../images/Book1.jpg'
+import Book2 from '../images/Book2.jpg'
+import Book3 from '../images/Book3.jpg'
+import Book4 from '../images/Book4.jpg'
+import Book5 from '../images/Book5.jpg'
+import Book6 from '../images/Book6.jpg'
+
+// TODO: IF user is logged in, get userName for form input
+// TODO: Check if USER has purchased books
+// TODO: Allow for anonymous review posts
+// TODO: If bookTitle does not exist, display ERROR
+
 class UserReview extends Component {
 
   constructor(props) {
@@ -26,11 +38,14 @@ class UserReview extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
+    let params = queryString.parse(this.props.location.search)
+    const bookDisplayName = params.bookTitle
+
     const userReview = {
       rating: this.state.rating,
       review: this.state.review,
       user_id: this.state.user_id,
-      bookTitle: this.state.bookTitle
+      bookTitle: bookDisplayName
     };
 
     Axios.post('http://localhost:3000/post/reviews/', userReview)
@@ -100,12 +115,19 @@ class UserReview extends Component {
     let params = queryString.parse(this.props.location.search)
     const bookDisplayName = params.bookTitle
 
-    // TODO: Create some map of book names and images.
+    // Create some map of book names and images.
+    var imageMap = new Object();
+    imageMap["Gone With The Wind"] = Book1;
+    imageMap["The Alchemist"] = Book2;
+    imageMap["To Kill A Mockingbird"] = Book3;
+    imageMap["Looking For Alaska"] = Book4;
+    imageMap["The Da Vinci Code"] = Book5;
+    imageMap["Peter Pan"] = Book6;
 
     return (
       <div align='center'>
-      <h1>Geektext Reviews</h1>
-      <img src="https://img.thriftbooks.com/api/images/l/f2800c22a6be10fe4328a1905df9ee4660f0ada2.jpg"/>
+      <h2>Geektext Reviews</h2>
+      <img src={imageMap[bookDisplayName]}/>
       <h2>{bookDisplayName}</h2>
 
       {renderedResponse.map(function(object) {
@@ -132,8 +154,6 @@ class UserReview extends Component {
 
           <label>Username: </label>
           <input name="user_id" type="text" value={this.state.user_id} onChange={this.handleInputChange} /><br/>
-          <label>Book Title: </label>
-          <input name="bookTitle" type="text" value={this.state.bookTitle} onChange={this.handleInputChange} /><br/>
           <br/>
           <StarRatings
             rating={this.state.rating}

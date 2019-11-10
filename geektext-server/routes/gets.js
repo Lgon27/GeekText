@@ -28,9 +28,9 @@ router.get('/books', async (req, res) => {
 
 router.get('/reviews', async (req, res) => {
     try {
-        console.log("Calling Route")
+        // console.log("Calling Route")
         var bookDisplayName = req.query.bookTitle; // $_GET["bookTitle"]
-        console.log(bookDisplayName)
+        // console.log(bookDisplayName)
 
          let userReviews = await Reviews.find({bookTitle:bookDisplayName}).sort({$natural:-1});
          res.json(userReviews)
