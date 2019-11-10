@@ -4,6 +4,7 @@ import Axios from 'axios';
 import StarRatings from 'react-star-ratings';
 
 import { throwStatement } from '@babel/types';
+import queryString from 'query-string';
 
 class UserReview extends Component {
 
@@ -54,8 +55,12 @@ class UserReview extends Component {
     });
   }
 
+// Populate Reviews
   getResponse = async() => {
-    const response = await fetch('/get/reviews');
+    let params = queryString.parse(this.props.location.search)
+    const bookDisplayName = params.bookTitle
+
+    const response = await fetch('/get/reviews?bookTitle='+bookDisplayName);
     const body = await response.json();
 
     if ( response.status !== 200) throw Error(body.message);
@@ -81,11 +86,27 @@ class UserReview extends Component {
     var avgRating = 0;
     var counter = 0;
 
+    const formStyle = {
+      width:'50%',
+    };
+
+    const submitButtonStyle = {
+      width:'100%',
+      color: '#FFFFFF',
+      background: '#ff5959',
+      height: '50px',
+    };
+
+    let params = queryString.parse(this.props.location.search)
+    const bookDisplayName = params.bookTitle
+
+    // TODO: Create some map of book names and images.
+
     return (
       <div align='center'>
       <h1>Geektext Reviews</h1>
       <img src="https://img.thriftbooks.com/api/images/l/f2800c22a6be10fe4328a1905df9ee4660f0ada2.jpg"/>
-      <h2>Gone With The Wind</h2>
+      <h2>{bookDisplayName}</h2>
 
       {renderedResponse.map(function(object) {
         avgRating += parseFloat(object.rating);
@@ -104,8 +125,9 @@ class UserReview extends Component {
       />
 
       <h5>Add Your Review!</h5>
+      <br/>
 
-      <div>
+      <div style={formStyle}>
       <form onSubmit={this.handleSubmit}>
 
           <label>Username: </label>
@@ -125,9 +147,10 @@ class UserReview extends Component {
           <label>Book Review: </label>
           <textarea name="review" value={this.state.review} onChange={this.handleInputChange} />
           <br/>
-          <input type="submit" value="Submit"/>
+          <input style={submitButtonStyle} type="submit" value="Submit"/>
       </form>
       </div>
+      <br/>
 
 
          {renderedResponse.map(function(object) {

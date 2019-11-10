@@ -28,7 +28,11 @@ router.get('/books', async (req, res) => {
 
 router.get('/reviews', async (req, res) => {
     try {
-         const userReviews = await Reviews.find().sort({$natural:-1});
+        console.log("Calling Route")
+        var bookDisplayName = req.query.bookTitle; // $_GET["bookTitle"]
+        console.log(bookDisplayName)
+
+         let userReviews = await Reviews.find({bookTitle:bookDisplayName}).sort({$natural:-1});
          res.json(userReviews)
     } catch (err) {
         res.json({ message: err });
