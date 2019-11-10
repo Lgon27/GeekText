@@ -14,8 +14,9 @@ import Book5 from '../images/Book5.jpg'
 import Book6 from '../images/Book6.jpg'
 
 // TODO: IF user is logged in, get userName for form input
-// TODO: Check if USER has purchased books
-// TODO: Allow for anonymous review posts
+// TODO: Check if USER has purchased the books -- Hide FORM if they haven't
+// TODO: Allow for ANONYMOUS review posts
+// TODO: Allow USERS to use their NICKNAME
 // TODO: If bookTitle does not exist, display ERROR
 
 class UserReview extends Component {
@@ -112,6 +113,8 @@ class UserReview extends Component {
       height: '50px',
     };
 
+    const textGreyStyle = { color: '#9c9c9c' };
+
     let params = queryString.parse(this.props.location.search)
     const bookDisplayName = params.bookTitle
 
@@ -123,6 +126,9 @@ class UserReview extends Component {
     imageMap["Looking For Alaska"] = Book4;
     imageMap["The Da Vinci Code"] = Book5;
     imageMap["Peter Pan"] = Book6;
+
+    // TODO: Set this flag based off user purchase
+    const displayForm = false;
 
     return (
       <div align='center'>
@@ -146,32 +152,40 @@ class UserReview extends Component {
         starDimension='30px'
       />
 
+    { displayForm ?
+      <div>
       <h5>Add Your Review!</h5>
       <br/>
 
       <div style={formStyle}>
-      <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
 
-          <label>Username: </label>
-          <input name="user_id" type="text" value={this.state.user_id} onChange={this.handleInputChange} /><br/>
-          <br/>
-          <StarRatings
-            rating={this.state.rating}
-            starRatedColor="red"
-            changeRating={this.changeRating}
-            numberOfStars={5}
-            name='rating'
-            starDimension='30px'
-          />
-          <br/>
-          <label>Book Review: </label>
-          <textarea name="review" value={this.state.review} onChange={this.handleInputChange} />
-          <br/>
-          <input style={submitButtonStyle} type="submit" value="Submit"/>
-      </form>
+            <label>Username: </label>
+            <input name="user_id" type="text" value={this.state.user_id} onChange={this.handleInputChange} /><br/>
+            <br/>
+            <StarRatings
+              rating={this.state.rating}
+              starRatedColor="red"
+              changeRating={this.changeRating}
+              numberOfStars={5}
+              name='rating'
+              starDimension='30px'
+            />
+            <br/>
+            <label>Book Review: </label>
+            <textarea name="review" value={this.state.review} onChange={this.handleInputChange} />
+            <br/>
+            <input style={submitButtonStyle} type="submit" value="Submit"/>
+        </form>
       </div>
       <br/>
-
+      </div>
+      :
+      <div>
+        <h5 style={textGreyStyle}><i>Purchase the book to leave a review!</i></h5>
+        <br/>
+      </div>
+    }
 
          {renderedResponse.map(function(object) {
            return (
@@ -179,7 +193,7 @@ class UserReview extends Component {
                 <hr/>
 
                 <p><i>"{object.review}"</i></p>
-                <p><b>Review From: {object.user_id}</b></p>
+                <p style={textGreyStyle}><b>Review From: {object.user_id}</b></p>
                 <StarRatings
                   rating={parseFloat(object.rating)}
                   starRatedColor="red"
