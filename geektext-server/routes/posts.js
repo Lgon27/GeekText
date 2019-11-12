@@ -5,6 +5,7 @@ const router = express.Router();
 
 const userSchema = require('../models/users')
 const bookSchema = require('../models/books')
+const cartItemSchema = require('../models/cartItems')
 
 router.post('/user', (req, res) => {
     const user = new userSchema({
@@ -45,5 +46,23 @@ router.post('/books', (req, res) => {
         })
 
 })
+router.post('/cart', (req, res) => {
+    const cartItem = new cartItemSchema({
+            email: req.body.email,
+            title: req.body.title,
+            cover_image: req.body.cover_image,
+            author: req.body.author,
+            price: req.body.price,
+        })
+    
+        cartItem.save().then(data => {
+           res.json(data);
+           console.log(data)
+        }).catch(err => {
+            res.json({ message: err });
+        })
+
+})
+
 
 module.exports = router;

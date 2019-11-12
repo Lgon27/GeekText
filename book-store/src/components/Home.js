@@ -24,7 +24,6 @@ class Home extends Component{
       }
 
       addToCart(book){
-        console.log('adding to cart')
         fetch('http://localhost:3000/post/cart', {
             method: 'POST',
             headers: {
@@ -32,9 +31,11 @@ class Home extends Component{
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              title: book.id,
-              author: book.author,
-              qty: 1
+            email: 'sgarc349@fiu.edu',
+            title: book.title,
+            cover_image: book.cover_image,
+            author: book.author,
+            price: book.price,
             })
           })
       }
@@ -95,12 +96,13 @@ class Home extends Component{
 
         return(
             <div className="container">
-                <h3 className="center">BOOKS</h3>
-                <div id='sortBy'>
-                <h2> sort by</h2> <button onClick = {this.sortByAuthorAsc} > Author </button>
-                <button onClick = {this.sortByDateAsc} > Date </button>
-                <button onClick = {this.sortByPriceAsc} > Price </button>
-                </div>
+                
+                <div className='sortBy'>
+                <span className= 'sort'>
+                <label>SORT BY</label>   <button className= 'sortButton' onClick = {this.sortByAuthorAsc} > AUTHOR </button>
+                <button className= 'sortButton' onClick = {this.sortByDateAsc} > PUBLISH DATE </button>
+                <button className= 'sortButton' onClick = {this.sortByPriceAsc} > PRICE </button>
+                </span></div>
                 <div className="box">
             
                 {books.map( book =>  ( 
@@ -111,7 +113,7 @@ class Home extends Component{
                             </Button>
 
                         <span to="/" className="btn-floating halfway-fab waves-effect waves-light red" 
-                            onClick={this.addToCart(book)}
+                            onClick={() => this.addToCart(book)}
                             ><i className="material-icons">add</i>
                         </span>
                     </div>

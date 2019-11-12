@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap
+    
 }
 .material-icons{
     font-size: 2.4em;
@@ -43,4 +44,25 @@
 .item-desc{
     align-self:center;
 }
-
+.sortBy{
+    margin-bottom: 5%;
+    margin-top: 5%; 
+    padding: 0px 8px 0px 8px;
+    width: fit-content; 
+    background: #ee6e73;
+    border-radius: 8px;
+}
+.sortButton{
+    height: 36px;
+    background: lightcoral;
+    padding: 0px 12px 0px 12px;
+    font-size: 14px;
+    border-width: 0px 0px 0px 2px;
+    width: fit-content;
+}
+label {
+    font-size: 16px;
+    font-family: sans-serif;
+    color: black;
+    margin: 0px 12px 0px 12px
+}
