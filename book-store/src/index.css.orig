@@ -1,0 +1,84 @@
+.box{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap
+    
+}
+.material-icons{
+    font-size: 2.4em;
+    color: black;
+    cursor: pointer;
+}
+.book-icon {
+    height: inherit;
+}
+#book-button {
+    height: inherit;
+}
+.card{
+    width: 300px;
+}
+.card .card-image .card-title{
+    color: black;
+    font-weight: 400;
+    max-height: 400px;
+}
+.cart{
+    margin-top:40px;
+}
+.collection .collection-item{
+    display: flex;
+}
+.collection-item.avatar .title {
+    font-size: 20px;
+    font-weight: 500;
+    color:darkcyan;
+    display: block;
+    margin-bottom: 20px;
+    
+}
+.collection .collection-item img{
+    width: 150px;
+    margin-right: 25px;
+}
+.item-desc{
+    align-self:center;
+}
+<<<<<<< HEAD
+.sortBy{
+    margin-bottom: 5%;
+    margin-top: 5%; 
+    padding: 0px 8px 0px 8px;
+    width: fit-content; 
+    background: #ee6e73;
+    border-radius: 8px;
+}
+.sortButton{
+    height: 36px;
+    background: lightcoral;
+    padding: 0px 12px 0px 12px;
+    font-size: 14px;
+    border-width: 0px 0px 0px 2px;
+    width: fit-content;
+}
+label {
+    font-size: 16px;
+    font-family: sans-serif;
+    color: black;
+    margin: 0px 12px 0px 12px
+}
+=======
+>>>>>>> 90e86d8797d938b6c496dcebf9c5b049b09df477
+.save-later{
+    position: relative;
+    right: -400px;
+    top: 175px;
+    display: block;
+}
+.delete{
+    position: relative;
+    right: -100px;
+    top: 77px;
+    display: block;
+}
+
