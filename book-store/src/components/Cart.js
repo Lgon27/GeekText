@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { removeItem,addQuantity,subtractQuantity } from './actions/cartActions'
+import { removeItem,addQuantity,subtractQuantity,saveLater } from './actions/cartActions'
 import Recipe from './Recipe'
+import SaveLater from './SaveLater'
 class Cart extends Component{
 
    //to remove the item completely
@@ -17,6 +18,10 @@ class Cart extends Component{
     handleSubtractQuantity = (id)=>{
         this.props.subtractQuantity(id);
     }
+    handleSave = (id)=>{
+        this.props.saveLater(id);
+    }
+
     render(){
               
         let addedItems = this.props.items.length ?
@@ -42,6 +47,10 @@ class Cart extends Component{
                                         </div>
                                         <button className="waves-effect waves-light btn red remove" onClick={()=>{this.handleRemove(item.id)}}>Remove</button>
                                     </div>
+
+                                    <div className="save-later">
+                                        <button className="waves-effect waves-light btn darkcyan save" onClick={()=>{this.handleSave(item.id)}}>Save For Later</button>
+                                    </div>   
                                     
                                </li>                        
                     )
@@ -60,6 +69,7 @@ class Cart extends Component{
                     </ul>
                 </div> 
                 <Recipe/> 
+                <SaveLater/>
             </div>
        )
     }
@@ -76,7 +86,8 @@ const mapDispatchToProps = (dispatch)=>{
     return{
         removeItem: (id)=>{dispatch(removeItem(id))},
         addQuantity: (id)=>{dispatch(addQuantity(id))},
-        subtractQuantity: (id)=>{dispatch(subtractQuantity(id))}
+        subtractQuantity: (id)=>{dispatch(subtractQuantity(id))},
+        saveLater: (id)=>{dispatch(saveLater(id))}
     }
 }
 

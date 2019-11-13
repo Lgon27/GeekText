@@ -66,3 +66,16 @@ label {
     color: black;
     margin: 0px 12px 0px 12px
 }
+.save-later{
+    position: relative;
+    right: -400px;
+    top: 175px;
+    display: block;
+}
+.delete{
+    position: relative;
+    right: -100px;
+    top: 77px;
+    display: block;
+}
+

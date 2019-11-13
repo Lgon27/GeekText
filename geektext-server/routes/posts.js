@@ -5,7 +5,11 @@ const router = express.Router();
 
 const userSchema = require('../models/users')
 const bookSchema = require('../models/books')
+<<<<<<< HEAD
 const cartItemSchema = require('../models/cartItems')
+=======
+const userReviewSchema = require('../models/reviews')
+>>>>>>> 90e86d8797d938b6c496dcebf9c5b049b09df477
 
 router.post('/user', (req, res) => {
     const user = new userSchema({
@@ -38,7 +42,7 @@ router.post('/books', (req, res) => {
             publish_date: req.body.publish_date,
             author_bio: req.body.author_bio
         })
-    
+
         book.save().then(data => {
            res.json(data);
         }).catch(err => {
@@ -64,5 +68,32 @@ router.post('/cart', (req, res) => {
 
 })
 
+
+router.post('/reviews', (req, res) => {
+    // console.log(req.body.review+"\n"+
+    //             req.body.rating+"\n"+
+    //             req.body.user_id+"\n"+
+    //             req.body.bookTitle+"\n");
+
+    const userReview = new userReviewSchema({
+        rating: req.body.rating,
+        review: req.body.review,
+        user_id: req.body.user_id,
+        bookTitle: req.body.bookTitle
+    })
+
+    console.log(userReview);
+
+    userReview.save().then(data => {
+        console.log("Success\n");
+        res.json(data);
+        // TODO: REFRESH UI!
+    }).catch(err => {
+        console.log("Error\n");
+        res.json({ message: err });
+    })
+
+
+})
 
 module.exports = router;
