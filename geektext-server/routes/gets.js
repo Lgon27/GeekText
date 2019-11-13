@@ -10,7 +10,7 @@ router.get('/users', async (req, res) => {
     try {
         const users = await Users.find();
         res.json(users);
-        console.log(users);
+        
     } catch (err) {
         res.json({ message: err });
     }
@@ -20,7 +20,7 @@ router.get('/books', async (req, res) => {
     try {
         const books = await Books.find();
         res.json(books);
-        console.log(books)
+        
     } catch (err) {
         res.json({ message: err });
     }

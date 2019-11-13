@@ -44,6 +44,7 @@
 .item-desc{
     align-self:center;
 }
+<<<<<<< HEAD
 .sortBy{
     margin-bottom: 5%;
     margin-top: 5%; 
@@ -66,6 +67,8 @@ label {
     color: black;
     margin: 0px 12px 0px 12px
 }
+=======
+>>>>>>> 90e86d8797d938b6c496dcebf9c5b049b09df477
 .save-later{
     position: relative;
     right: -400px;

@@ -1,74 +1,134 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { addToCart } from './actions/cartActions'
 import {Button} from 'react-bootstrap';
-import {BookDetails} from './BookDetails.js';
+
 
 class Home extends Component{
-    
+
     constructor(props){
-        super(props);
-        this.state = {books:[], bookDetailsShow: false}
+        super(props)
+        this.state = { books: [], sortedBy: '' }
+        this.sortByPriceAsc = this.sortByPriceAsc.bind(this);
+        this.sortByAuthorAsc = this.sortByAuthorAsc.bind(this);
+        this.sortByDateAsc = this.sortByDateAsc.bind(this);
     }
 
-    handleClick = (id)=>{
-        this.props.addToCart(id); 
-    }
+    componentDidMount() {
+        fetch('http://localhost:3000/get/books')
+          .then(res => res.json())
+          .then(books => {
+            console.log(books);
+            this.setState({ books}); // Notify your component that products have been fetched
+          })
+          console.log(this.state.books);
+          
+      }
 
+      addToCart(book){
+        fetch('http://localhost:3000/post/cart', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+            email: 'sgarc349@fiu.edu',
+            title: book.title,
+            cover_image: book.cover_image,
+            author: book.author,
+            price: book.price,
+            })
+          })
+      }
+
+      sortByPriceAsc() {
+        this.setState(prevState => {
+            this.state.books.sort((a, b) => (a.price - b.price))
+        }); 
+        if (this.state.sortedBy === 'priceDESC') {
+            this.setState(prevState => {
+                this.state.books.reverse()
+                this.state.sortedBy = 'priceASC'
+            });}
+        else {                
+            this.setState(prevState => {
+                this.state.sortedBy = 'priceDESC'
+            });}
+        this.forceUpdate();
+      }
+
+      sortByAuthorAsc() {
+        this.setState(prevState => {
+            this.state.books.sort((a, b) => a.author.charAt(0) - b.author.charAt(0)) 
+            });
+        if (this.state.sortedBy === 'authorASC') {
+            this.setState(prevState => {
+                this.state.books.reverse()
+                this.state.sortedBy = 'AuthorDESC'
+            });}
+        else {
+            this.setState(prevState => {
+                this.state.sortedBy = 'authorASC'
+            });
+        }
+      this.forceUpdate();
+      }
+
+      sortByDateAsc() {
+        this.setState(prevState => {
+            this.state.books.sort((a, b) => a.publish_date - b.publish_date)
+            }); 
+        if (this.state.sortedBy === 'dateASC') {
+            this.setState(prevState => {
+                this.state.books.reverse()
+                this.state.sortedBy = 'dateDESC'
+            }); }
+        else {
+            this.setState(prevState => {
+                this.state.sortedBy = 'dateASC'
+                });
+        }
+        this.forceUpdate();
+      }
+    
     render(){
-        
-        let bookDetailsClose =() => this.setState({bookDetailsShow: false})
+        const books = this.state.books;
 
-
-        let itemList = this.props.items.map(item=>{
-            return(
-                <div className="card" key={item.id}>
-                        <div className="card-image">
-                                <Button id='book-button' onClick={() => this.setState({
-                                    bookTitle: item.title,
-                                    bookDetailsShow:true
-                                    })}>
-                                <img src={item.img} alt={item.title}/>
-                                </Button>
-
-                            <span to="/" className="btn-floating halfway-fab waves-effect waves-light red" 
-                                onClick={()=>{this.handleClick(item.id)}}><i className="material-icons">add</i>
-                            </span>
-                        </div>
-
-                        <div className="card-content">
-                            <p>{item.desc}</p>
-                            <p><b>Price: ${item.price}</b></p>
-                        </div>
-                 </div>
-            )
-        })
 
         return(
             <div className="container">
-                <h3 className="center">BOOKS</h3>
+                
+                <div className='sortBy'>
+                <span className= 'sort'>
+                <label>SORT BY</label>   <button className= 'sortButton' onClick = {this.sortByAuthorAsc} > AUTHOR </button>
+                <button className= 'sortButton' onClick = {this.sortByDateAsc} > PUBLISH DATE </button>
+                <button className= 'sortButton' onClick = {this.sortByPriceAsc} > PRICE </button>
+                </span></div>
                 <div className="box">
-                    {itemList}
-                </div>
-                <BookDetails
-                        show = {this.state.bookDetailsShow}
-                        onHide = {bookDetailsClose}>
-                </BookDetails>
+            
+                {books.map( book =>  ( 
+                    <div className="card" key={book._id}>
+                    <div className="card-image">
+                            <Button id='book-button'>
+                            <img src={book.cover_image} alt={book.title}/>
+                            </Button>
+
+                        <span to="/" className="btn-floating halfway-fab waves-effect waves-light red" 
+                            onClick={() => this.addToCart(book)}
+                            ><i className="material-icons">add</i>
+                        </span>
+                    </div>
+
+                    <div className="card-content">
+                        <p>{book.author}</p>
+                        <p><b>Price: ${book.price}</b></p>
+                    </div>
+                    </div>
+                    ))}
             </div>
-        )
+            </div>
+               
+            );  
+        }  
     }
-
-}
-const mapStateToProps = (state)=>{
-    return {
-      items: state.items
-    }
-  }
-const mapDispatchToProps = (dispatch)=>{
     
-    return{
-        addToCart: (id)=>{dispatch(addToCart(id))}
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(Home)
+export default Home;
