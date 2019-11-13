@@ -5,11 +5,8 @@ const router = express.Router();
 
 const userSchema = require('../models/users')
 const bookSchema = require('../models/books')
-<<<<<<< HEAD
 const cartItemSchema = require('../models/cartItems')
-=======
 const userReviewSchema = require('../models/reviews')
->>>>>>> 90e86d8797d938b6c496dcebf9c5b049b09df477
 
 router.post('/user', (req, res) => {
     const user = new userSchema({

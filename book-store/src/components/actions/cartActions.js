@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY} from './action-types/cart-actions'
-=======
 import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,ADD_SHIPPING, SAVE_LATER, ADD_BACK, DELETE_ITEM} from './action-types/cart-actions'
->>>>>>> 90e86d8797d938b6c496dcebf9c5b049b09df477
 
 //add cart action
 export const addToCart= (id)=>{
