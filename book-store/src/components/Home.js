@@ -5,18 +5,18 @@ import {Button} from 'react-bootstrap';
 import {BookDetails} from './BookDetails.js';
 
 class Home extends Component{
-    
+
     constructor(props){
         super(props);
         this.state = {books:[], bookDetailsShow: false}
     }
 
     handleClick = (id)=>{
-        this.props.addToCart(id); 
+        this.props.addToCart(id);
     }
 
     render(){
-        
+
         let bookDetailsClose =() => this.setState({bookDetailsShow: false})
 
 
@@ -31,7 +31,7 @@ class Home extends Component{
                                 <img src={item.img} alt={item.title}/>
                                 </Button>
 
-                            <span to="/" className="btn-floating halfway-fab waves-effect waves-light red" 
+                            <span to="/" className="btn-floating halfway-fab waves-effect waves-light red"
                                 onClick={()=>{this.handleClick(item.id)}}><i className="material-icons">add</i>
                             </span>
                         </div>
@@ -65,7 +65,7 @@ const mapStateToProps = (state)=>{
     }
   }
 const mapDispatchToProps = (dispatch)=>{
-    
+
     return{
         addToCart: (id)=>{dispatch(addToCart(id))}
     }
