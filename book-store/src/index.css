@@ -66,16 +66,15 @@ label {
     color: black;
     margin: 0px 12px 0px 12px
 }
-.save-later{
-    position: relative;
-    right: -400px;
-    top: 175px;
-    display: block;
+.collection-item.avatar .item-save{
+   position: absolute;
+   top: 182px;
+   right: 20px;
 }
 .delete{
-    position: relative;
-    right: -100px;
-    top: 77px;
-    display: block;
+   position: absolute;
+   top: 80px;
+   right: 10px;
 }
+
 

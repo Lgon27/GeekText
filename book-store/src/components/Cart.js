@@ -48,9 +48,9 @@ class Cart extends Component{
                                         <button className="waves-effect waves-light btn red remove" onClick={()=>{this.handleRemove(item.id)}}>Remove</button>
                                     </div>
 
-                                    <div className="save-later">
-                                        <button className="waves-effect waves-light btn darkcyan save" onClick={()=>{this.handleSave(item.id)}}>Save For Later</button>
-                                    </div>   
+                                    <div className="item-save">
+                                            <button className="waves-effect waves-light btn darkcyan save" onClick={()=>{this.handleSave(item.id)}}>Save For Later</button>
+                                    </div>  
                                     
                                </li>                        
                     )
