@@ -172,7 +172,7 @@ class UserSignup extends Component {
 
     render() {
 
-        if (this.state.signedUp == false) {
+        if (this.state.signedUp === false) {
             return (
                 <div>
                     <form onSubmit={this.handleSubmit}>

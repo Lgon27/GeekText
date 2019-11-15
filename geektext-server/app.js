@@ -19,6 +19,9 @@ app.use('/get', getRoutes)
 const postRoutes = require('./routes/posts');
 app.use('/post', postRoutes)
 
+const patchRoutes = require('./routes/patches');
+app.use('/patch', patchRoutes)
+
 
 
 //Sample route 

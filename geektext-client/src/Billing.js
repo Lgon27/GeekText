@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField'
 import Axios from 'axios';
 
@@ -25,10 +24,6 @@ class Billing extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-
-
-        console.log(this.state.loginID + "dasd")
-
         this.createBilling()
         event.target.reset();
     }

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import AppBar from '@material-ui/core/AppBar'
-import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -56,7 +54,7 @@ class NavBar extends Component {
 
     render() {
 
-        if (this.state.signUp == true)
+        if (this.state.signUp === true)
             return (
                 <div>
                     <AppBar position="static">
@@ -74,7 +72,7 @@ class NavBar extends Component {
 
 
             )
-        else if (this.state.logIn == true)
+        else if (this.state.logIn === true)
             return (
                 <div>
                     <AppBar position="static">
@@ -91,7 +89,7 @@ class NavBar extends Component {
 
                 </div>
             )
-        else if (this.state.homePage == true)
+        else if (this.state.homePage === true)
             return (
                 <div>
                     <AppBar position="static">

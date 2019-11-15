@@ -55,7 +55,7 @@ class LogIn extends Component {
 
     render() {
 
-        if (this.state.loginSuccessful == true) {
+        if (this.state.loginSuccessful === true) {
             return (
                 <UserManagement loginID={this.state.loginID} />
             )
