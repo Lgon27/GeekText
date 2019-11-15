@@ -96,11 +96,6 @@ class UserReview extends Component {
       const someData = res;
       this.setState({renderedResponse: someData});
     })
-
-    this.getPurchaseReponse().then(res => {
-      const data = res;
-      this.purchaseData = data.purchased;
-    })
   }
 
   changeRating( newRating, name ) {
@@ -112,12 +107,20 @@ class UserReview extends Component {
   render() {
     const { renderedResponse } = this.state;
 
+    // Render once the purchaseData has been set (By updating state!)
     this.getPurchaseReponse().then(res => {
       const data = res;
       this.purchaseData = data.purchased;
+
+      this.getResponse().then(res => {
+        const someData = res;
+        this.setState({renderedResponse: someData});
+      })
     })
 
     const displayForm = this.purchaseData;
+
+    console.log(displayForm);
 
     var avgRating = 0;
     var counter = 0;
