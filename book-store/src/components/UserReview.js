@@ -96,6 +96,11 @@ class UserReview extends Component {
       const someData = res;
       this.setState({renderedResponse: someData});
     })
+
+    this.getPurchaseReponse().then(res => {
+      const data = res;
+      this.purchaseData = data.purchased;
+    })
   }
 
   changeRating( newRating, name ) {
