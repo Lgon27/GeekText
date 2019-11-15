@@ -14,7 +14,6 @@ import Book5 from '../images/Book5.jpg'
 import Book6 from '../images/Book6.jpg'
 
 // TODO: Retrieve User ID and User Display Name
-// TODO: Check if USER has purchased the books -- Hide FORM if they haven't
 
 class UserReview extends Component {
 
@@ -26,8 +25,9 @@ class UserReview extends Component {
       review: "",
       user_id: "",
       bookTitle: "",
-      renderedResponse: []
+      renderedResponse: [],
     };
+    this.purchaseData = false;
     this.handleInputChange = this.handleInputChange.bind(this);
 
     this.changeRating = this.changeRating.bind(this);
@@ -48,9 +48,6 @@ class UserReview extends Component {
 
     Axios.post('http://localhost:3000/post/reviews/', userReview)
       .then(res => {
-        console.log(res);
-        console.log(res.data);
-
         this.getResponse().then(res => {
           const someData = res;
           this.setState({renderedResponse: someData});
@@ -74,11 +71,24 @@ class UserReview extends Component {
     const bookDisplayName = params.bookTitle
 
     const response = await fetch('/get/reviews?bookTitle='+bookDisplayName);
+
     const body = await response.json();
 
     if ( response.status !== 200) throw Error(body.message);
 
     return body;
+  }
+
+  getPurchaseReponse = async() => {
+    let params = queryString.parse(this.props.location.search)
+    const bookDisplayName = params.bookTitle
+
+    const userPurchasedBook = await fetch('/get/purchasedbooks?bookTitle='+bookDisplayName+'&'+'user_id=thoan006');
+    const purchaseResponse = await userPurchasedBook.json();
+
+    if ( userPurchasedBook.status !== 200) throw Error(purchaseResponse.message);
+
+    return purchaseResponse;
   }
 
   componentDidMount() {
@@ -96,6 +106,14 @@ class UserReview extends Component {
 
   render() {
     const { renderedResponse } = this.state;
+
+    this.getPurchaseReponse().then(res => {
+      const data = res;
+      this.purchaseData = data.purchased;
+    })
+
+    const displayForm = this.purchaseData;
+
     var avgRating = 0;
     var counter = 0;
 
@@ -123,9 +141,6 @@ class UserReview extends Component {
     imageMap["Looking For Alaska"] = Book4;
     imageMap["The Da Vinci Code"] = Book5;
     imageMap["Peter Pan"] = Book6;
-
-    // TODO: Set this flag based off user purchase
-    const displayForm = true;
 
     return (
       <div align='center'>

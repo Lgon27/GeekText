@@ -5,6 +5,7 @@ const router = express.Router();
 const Users = require('../models/users')
 const Books = require('../models/books')
 const Reviews = require('../models/reviews')
+const PurchasedBooks = require('../models/purchasedbooks')
 
 router.get('/users', async (req, res) => {
     try {
@@ -21,6 +22,33 @@ router.get('/books', async (req, res) => {
         const books = await Books.find();
         res.json(books);
         console.log(books)
+    } catch (err) {
+        res.json({ message: err });
+    }
+})
+
+router.get('/purchasedbooks', async (req, res) => {
+    try {
+        var userId = req.query.user_id; // $_GET["user_id"]
+        var bookDisplayName = req.query.bookTitle; // $_GET["bookTitle"]
+
+         let userPurchasedBook = await PurchasedBooks.find({user_id:userId, bookTitle:bookDisplayName});
+
+        // If user has not purchased book
+         if (userPurchasedBook.length == 0 ) {
+            // Send some message back saying user hasn't purchased
+            console.log("User has not purchased book");
+            status = { purchased: false };
+            res.json(status);
+         }
+         // If user has purchased book
+         else {
+            console.log("User has purchased book");
+            status = { purchased: true };
+            res.json(status);
+         }
+
+         // res.json(userReviews)
     } catch (err) {
         res.json({ message: err });
     }
