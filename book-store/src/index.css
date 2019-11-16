@@ -58,15 +58,15 @@
     margin-top: 5%; 
     padding: 0px 8px 0px 8px;
     width: fit-content; 
-    background: #ee6e73;
+    background: #f080805e;
     border-radius: 8px;
 }
 .sortButton{
     height: 36px;
-    background: lightcoral;
+    background: #f080805e;
     padding: 0px 12px 0px 12px;
     font-size: 14px;
-    border-width: 0px 0px 0px 2px;
+    border-width: 0px 0px 0px 0px;
     width: fit-content;
 }
 label {

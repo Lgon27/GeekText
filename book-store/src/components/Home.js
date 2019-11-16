@@ -18,7 +18,6 @@ class Home extends Component{
         fetch('http://localhost:3000/get/books')
           .then(res => res.json())
           .then(books => {
-            console.log(books);
             this.setState({ books}); // Notify your component that products have been fetched
           })
           console.log(this.state.books);
@@ -60,7 +59,7 @@ class Home extends Component{
 
       sortByAuthorAsc() {
         this.setState(prevState => {
-            this.state.books.sort((a, b) => a.author.charAt(0) - b.author.charAt(0)) 
+            this.state.books.sort((a, b) => a.author.charAt(0).toUpperCase() - b.author.charAt(0).toUpperCase()) 
             });
         if (this.state.sortedBy === 'authorASC') {
             this.setState(prevState => {
