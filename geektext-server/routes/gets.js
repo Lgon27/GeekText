@@ -5,6 +5,7 @@ const router = express.Router();
 const Users = require('../models/users')
 const Books = require('../models/books')
 const Reviews = require('../models/reviews')
+const CartItems = require('../models/cartItems')
 
 router.get('/users', async (req, res) => {
     try {
@@ -20,6 +21,16 @@ router.get('/books', async (req, res) => {
     try {
         const books = await Books.find();
         res.json(books);
+        
+    } catch (err) {
+        res.json({ message: err });
+    }
+})
+
+router.get('/cartItems', async (req, res) => {
+    try {
+        const cartItems = await CartItems.find();
+        res.json(cartItems);
         
     } catch (err) {
         res.json({ message: err });
