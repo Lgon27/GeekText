@@ -16,6 +16,7 @@ router.get('/users', async (req, res) => {
         res.json({ message: err });
     }
 })
+
 // GET ALL BOOKS
 router.get('/books', async (req, res) => {
     try {
@@ -27,6 +28,18 @@ router.get('/books', async (req, res) => {
     }
 })
 
+// User Details
+router.get('/userDetails', async (req, res) => {
+    try {
+        const user = await Users.find({ loginID: req.query.loginID });
+        res.json(user);
+        console.log(user);
+    } catch (err) {
+        res.json({ message: err });
+    }
+})
+
+// Determine whether a user has purchased the book
 router.get('/purchasedbooks', async (req, res) => {
     try {
         var userId = req.query.user_id; // $_GET["user_id"]

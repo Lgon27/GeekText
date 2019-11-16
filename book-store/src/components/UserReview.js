@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-// import TextField from '@material-ui/core/TextField'
 import StarRatings from 'react-star-ratings';
 
 import { throwStatement } from '@babel/types';
@@ -12,8 +11,6 @@ import Book3 from '../images/Book3.jpg'
 import Book4 from '../images/Book4.jpg'
 import Book5 from '../images/Book5.jpg'
 import Book6 from '../images/Book6.jpg'
-
-// TODO: Retrieve User ID and User Display Name
 
 class UserReview extends Component {
 
@@ -31,6 +28,24 @@ class UserReview extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
 
     this.changeRating = this.changeRating.bind(this);
+
+    // let params = queryString.parse(this.props.loginID)
+    // this.userLoginID = params
+
+    this.userLoginID = "thoan006";
+    // this.userNickname = '';
+    console.log("Login ID: " + this.userLoginID);
+
+    Axios.get('http://localhost:3000/get/userDetails?loginID='+this.userLoginID)
+        .then(response => {
+            let data = response.data;
+            this.userLoginID = data[0].loginID;
+            this.userNickname = data[0].nickname;
+        })
+        .catch(function (error) {
+            console.log(error)
+            alert('Could not find user details!')
+        })
   }
 
   handleSubmit = event => {
@@ -65,13 +80,11 @@ class UserReview extends Component {
     });
   }
 
-// Populate Reviews
   getResponse = async() => {
     let params = queryString.parse(this.props.location.search)
     const bookDisplayName = params.bookTitle
 
     const response = await fetch('/get/reviews?bookTitle='+bookDisplayName);
-
     const body = await response.json();
 
     if ( response.status !== 200) throw Error(body.message);
@@ -83,7 +96,7 @@ class UserReview extends Component {
     let params = queryString.parse(this.props.location.search)
     const bookDisplayName = params.bookTitle
 
-    const userPurchasedBook = await fetch('/get/purchasedbooks?bookTitle='+bookDisplayName+'&'+'user_id=thoan006');
+    const userPurchasedBook = await fetch('/get/purchasedbooks?bookTitle='+bookDisplayName+'&'+'user_id='+this.userLoginID);
     const purchaseResponse = await userPurchasedBook.json();
 
     if ( userPurchasedBook.status !== 200) throw Error(purchaseResponse.message);
@@ -92,9 +105,14 @@ class UserReview extends Component {
   }
 
   componentDidMount() {
-    this.getResponse().then(res => {
-      const someData = res;
-      this.setState({renderedResponse: someData});
+    this.getPurchaseReponse().then(res => {
+      const data = res;
+      this.purchaseData = data.purchased;
+
+      this.getResponse().then(res => {
+        const someData = res;
+        this.setState({renderedResponse: someData});
+      })
     })
   }
 
@@ -106,17 +124,6 @@ class UserReview extends Component {
 
   render() {
     const { renderedResponse } = this.state;
-
-    // Render once the purchaseData has been set (By updating state!)
-    this.getPurchaseReponse().then(res => {
-      const data = res;
-      this.purchaseData = data.purchased;
-
-      this.getResponse().then(res => {
-        const someData = res;
-        this.setState({renderedResponse: someData});
-      })
-    })
 
     const displayForm = this.purchaseData;
 
@@ -187,8 +194,8 @@ class UserReview extends Component {
             <label>Username for Post: </label>
             <select style={{ display: 'block' }} name="user_id" value={this.state.user_id} onChange={this.handleInputChange}>
               <option value="">-- Select Display Name</option>
-              <option value="thoan006">User ID: thoan006</option>
-              <option value="Trinh Hoang">User Name: Trinh Hoang</option>
+              <option value={this.userLoginID}>User ID: {this.userLoginID}</option>
+              <option value={this.userNickname}>User Name: {this.userNickname}</option>
               <option value="Anonymous">Anonymous Post</option>
             </select>
             <br/>
