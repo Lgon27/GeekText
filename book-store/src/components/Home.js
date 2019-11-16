@@ -5,7 +5,7 @@ import StarRatingComponent from 'react-star-rating-component';
 
 class Home extends Component{
 
-    constructor(props){
+    constructor(props){ 
         super(props)
         this.state = { books: [], sortedBy: '' }
         this.sortByPriceAsc = this.sortByPriceAsc.bind(this);
