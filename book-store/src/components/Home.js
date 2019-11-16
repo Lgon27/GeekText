@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Button} from 'react-bootstrap';
+import StarRatingComponent from 'react-star-rating-component';
 
 
 class Home extends Component{
@@ -108,19 +109,25 @@ class Home extends Component{
                 {books.map( book =>  ( 
                     <div className="card" key={book._id}>
                     <div className="card-image">
-                            <Button id='book-button'>
+                           
                             <img src={book.cover_image} alt={book.title}/>
-                            </Button>
-
+                            <p className = "bookPrice"><b>${book.price.toFixed(2)}</b></p>
+                    
                         <span to="/" className="btn-floating halfway-fab waves-effect waves-light red" 
                             onClick={() => this.addToCart(book)}
-                            ><i className="material-icons">add</i>
+                            ><i className="material-icons">add_shopping_cart</i>
                         </span>
                     </div>
 
                     <div className="card-content">
-                        <p>{book.author}</p>
-                        <p><b>Price: ${book.price}</b></p>
+                        <p font-size = "14px"><b>{book.title}</b></p>
+                        <p><i>{book.author}</i></p>
+                        <StarRatingComponent 
+                        name="rate2" 
+                        editing={false}
+                        starCount={5}
+                        value={book.rating}
+                        />
                     </div>
                     </div>
                     ))}

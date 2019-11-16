@@ -9,6 +9,12 @@
     color: black;
     cursor: pointer;
 }
+.dv-star-rating-non-editable{
+    margin-top:12px;
+}
+.label {
+    margin: 0px 8px 0px 0px!;
+}
 .book-icon {
     height: inherit;
 }
@@ -22,6 +28,9 @@
     color: black;
     font-weight: 400;
     max-height: 400px;
+}
+.card-image {
+    min-height: 465px;
 }
 .cart{
     margin-top:40px;
@@ -76,5 +85,15 @@ label {
    top: 80px;
    right: 10px;
 }
-
-
+.bookPrice{
+    margin: -16px 0px 0px 10px;
+    position: absolute;
+    z-index: 10;
+    color: white;
+    background: darkolivegreen;
+    border-radius: 8px;
+    padding: 6px;
+    min-width: 80px;
+    text-align: center;
+    font-size: 14px;
+}
