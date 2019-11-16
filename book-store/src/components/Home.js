@@ -11,6 +11,7 @@ class Home extends Component{
         this.sortByPriceAsc = this.sortByPriceAsc.bind(this);
         this.sortByAuthorAsc = this.sortByAuthorAsc.bind(this);
         this.sortByDateAsc = this.sortByDateAsc.bind(this);
+        this.sortByRatingAsc = this.sortByRatingAsc.bind(this);
     }
 
     componentDidMount() {
@@ -91,6 +92,22 @@ class Home extends Component{
         this.forceUpdate();
       }
     
+      sortByRatingAsc() {
+        this.setState(prevState => {
+            this.state.books.sort((a, b) => (a.rating - b.rating))
+        }); 
+        if (this.state.sortedBy === 'ratingDESC') {
+            this.setState(prevState => {
+                this.state.books.reverse()
+                this.state.sortedBy = 'priceASC'
+            });}
+        else {                
+            this.setState(prevState => {
+                this.state.sortedBy = 'ratingDESC'
+            });}
+        this.forceUpdate();
+      }
+    
     render(){
         const books = this.state.books;
 
@@ -103,6 +120,7 @@ class Home extends Component{
                 <label>SORT BY</label>   <button className= 'sortButton' onClick = {this.sortByAuthorAsc} > AUTHOR </button>
                 <button className= 'sortButton' onClick = {this.sortByDateAsc} > PUBLISH DATE </button>
                 <button className= 'sortButton' onClick = {this.sortByPriceAsc} > PRICE </button>
+                <button className= 'sortButton' onClick = {this.sortByRatingAsc} > RATING </button>
                 </span></div>
                 <div className="box">
             
