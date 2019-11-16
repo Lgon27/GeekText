@@ -29,11 +29,9 @@ class UserReview extends Component {
 
     this.changeRating = this.changeRating.bind(this);
 
-    // let params = queryString.parse(this.props.loginID)
-    // this.userLoginID = params
-
+    // this.userLoginID = this.props.loginID;
     this.userLoginID = "thoan006";
-    // this.userNickname = '';
+
     console.log("Login ID: " + this.userLoginID);
 
     Axios.get('http://localhost:3000/get/userDetails?loginID='+this.userLoginID)
