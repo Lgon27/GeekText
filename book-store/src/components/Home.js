@@ -140,10 +140,10 @@ class Home extends Component{
                         <p font-size = "14px"><b>{book.title}</b></p>
                         <p><i>{book.author}</i></p>
                         <StarRatingComponent 
-                        name="rate2" 
-                        editing={false}
-                        starCount={5}
-                        value={book.rating}
+                            name="rate2" 
+                            editing={false}
+                            starCount={5}
+                            value={book.rating}
                         />
                     </div>
                     </div>
