@@ -193,7 +193,7 @@ class UserReview extends Component {
             <select style={{ display: 'block' }} name="user_id" value={this.state.user_id} onChange={this.handleInputChange}>
               <option value="">-- Select Display Name</option>
               <option value={this.userLoginID}>User ID: {this.userLoginID}</option>
-              <option value={this.userNickname}>User Name: {this.userNickname}</option>
+              <option value={this.userNickname}>Nickname: {this.userNickname}</option>
               <option value="Anonymous">Anonymous Post</option>
             </select>
             <br/>
