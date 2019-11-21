@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import {Button} from 'react-bootstrap';
 import StarRatingComponent from 'react-star-rating-component';
+import {BookDetails} from './BookDetails.js';
+import {addToCart} from './actions/cartActions'
+import {connect} from 'react-redux'
 
 
 class Home extends Component{
 
     constructor(props){
         super(props)
-        this.state = { books: [], sortedBy: '' }
+        this.state = { books: [], sortedBy: '', bookDetailsShow: false }
         this.sortByPriceAsc = this.sortByPriceAsc.bind(this);
         this.sortByAuthorAsc = this.sortByAuthorAsc.bind(this);
         this.sortByDateAsc = this.sortByDateAsc.bind(this);
         this.sortByRatingAsc = this.sortByRatingAsc.bind(this);
+    }
+
+    handleClick = (id)=>{
+        this.props.addToCart(id);
     }
 
     componentDidMount() {
@@ -21,7 +28,7 @@ class Home extends Component{
             this.setState({ books}); // Notify your component that products have been fetched
           })
           console.log(this.state.books);
-          
+
       }
 
       addToCart(book){
@@ -44,13 +51,13 @@ class Home extends Component{
       sortByPriceAsc() {
         this.setState(prevState => {
             this.state.books.sort((a, b) => (a.price - b.price))
-        }); 
+        });
         if (this.state.sortedBy === 'priceDESC') {
             this.setState(prevState => {
                 this.state.books.reverse()
                 this.state.sortedBy = 'priceASC'
             });}
-        else {                
+        else {
             this.setState(prevState => {
                 this.state.sortedBy = 'priceDESC'
             });}
@@ -59,7 +66,7 @@ class Home extends Component{
 
       sortByAuthorAsc() {
         this.setState(prevState => {
-            this.state.books.sort((a, b) => a.author.charAt(0).toUpperCase() - b.author.charAt(0).toUpperCase()) 
+            this.state.books.sort((a, b) => a.author.charAt(0).toUpperCase() - b.author.charAt(0).toUpperCase())
             });
         if (this.state.sortedBy === 'authorASC') {
             this.setState(prevState => {
@@ -74,10 +81,11 @@ class Home extends Component{
       this.forceUpdate();
       }
 
+
       sortByDateAsc() {
         this.setState(prevState => {
             this.state.books.sort((a, b) => a.publish_date - b.publish_date)
-            }); 
+            });
         if (this.state.sortedBy === 'dateASC') {
             this.setState(prevState => {
                 this.state.books.reverse()
@@ -90,30 +98,30 @@ class Home extends Component{
         }
         this.forceUpdate();
       }
-    
+
       sortByRatingAsc() {
         this.setState(prevState => {
             this.state.books.sort((a, b) => (a.rating - b.rating))
-        }); 
+        });
         if (this.state.sortedBy === 'ratingDESC') {
             this.setState(prevState => {
                 this.state.books.reverse()
                 this.state.sortedBy = 'priceASC'
             });}
-        else {                
+        else {
             this.setState(prevState => {
                 this.state.sortedBy = 'ratingDESC'
             });}
         this.forceUpdate();
       }
-    
-    render(){
-        const books = this.state.books;
 
+    render(){
+        let bookDetailsClose =() => this.setState({bookDetailsShow: false})
+        const books = this.state.books;
 
         return(
             <div className="container">
-                
+
                 <div className='sortBy'>
                 <span className= 'sort'>
                 <label>SORT BY</label>   <button className= 'sortButton' onClick = {this.sortByAuthorAsc} > AUTHOR </button>
@@ -122,16 +130,19 @@ class Home extends Component{
                 <button className= 'sortButton' onClick = {this.sortByRatingAsc} > RATING </button>
                 </span></div>
                 <div className="box">
-            
-                {books.map( book =>  ( 
+
+                {books.map( book =>  (
                     <div className="card" key={book._id}>
-                    <div className="card-image">
-                           
+                    <div className="card-image" title={book.title} onClick={() => this.setState({
+                                    bookTitle: book.title,
+                                    bookDetailsShow:true
+                                    })}>
+
                             <img src={book.cover_image} alt={book.title}/>
                             <p className = "bookPrice"><b>${book.price.toFixed(2)}</b></p>
-                    
-                        <span to="/" className="btn-floating halfway-fab waves-effect waves-light red" 
-                            onClick={() => this.addToCart(book)}
+
+                        <span to="/" className="btn-floating halfway-fab waves-effect waves-light red"
+                             onClick={()=>{this.handleClick(book.id)}}
                             ><i className="material-icons">add_shopping_cart</i>
                         </span>
                     </div>
@@ -139,20 +150,37 @@ class Home extends Component{
                     <div className="card-content">
                         <p font-size = "14px"><b>{book.title}</b></p>
                         <p><i>{book.author}</i></p>
-                        <StarRatingComponent 
-                            name="rate2" 
+                        <StarRatingComponent
+                            name="rate2"
                             editing={false}
                             starCount={5}
                             value={book.rating}
                         />
                     </div>
+                    <BookDetails bookTitle={book.title}
+                            show = {this.state.bookDetailsShow}
+                            onHide = {bookDetailsClose}>
+                    </BookDetails>
                     </div>
                     ))}
             </div>
             </div>
-               
-            );  
-        }  
+
+            );
+        }
+
+}
+
+const mapStateToProps = (state)=>{
+    return {
+      items: state.books
     }
-    
-export default Home;
+  }
+const mapDispatchToProps = (dispatch)=>{
+
+    return{
+        addToCart: (id)=>{dispatch(addToCart(id))}
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Home)
