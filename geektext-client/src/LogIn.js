@@ -9,7 +9,11 @@ class LogIn extends Component {
         this.state = {
             loginID: 'null',
             loginPassword: 'null',
-            loginSuccessful: false
+            loginSuccessful: false,
+            name: 'null',
+            emailAddress: 'null',
+            homeAddress: 'null',
+            nickname: 'null'
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -44,7 +48,12 @@ class LogIn extends Component {
                 let data = response.data;
                 console.log(data)
                 this.setState({
-                    loginSuccessful: true
+                    loginSuccessful: true,
+                    name: data[0].name,
+                    emailAddress: data[0].emailAddress,
+                    homeAddress: data[0].homeAddress,
+                    nickname: data[0].nickname
+
                 })
             })
             .catch(function (error) {
@@ -57,7 +66,7 @@ class LogIn extends Component {
 
         if (this.state.loginSuccessful === true) {
             return (
-                <UserManagement loginID={this.state.loginID} />
+                <UserManagement loginID={this.state.loginID} updateCounter={0} name={this.state.name} emailAddress={this.state.emailAddress} homeAddress={this.state.homeAddress} nickname={this.state.name} />
             )
         }
         else {

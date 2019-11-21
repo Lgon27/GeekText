@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 
 //User Billing Information Schema
-const billingSchema = mongoose.Schema({
+const shippingSchema = mongoose.Schema({
+
     loginID: {
         type: String,
         required: true
@@ -10,18 +11,20 @@ const billingSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    creditCardNumber: {
+    city: {
         type: String,
         required: true
     },
-    creditCardCCV: {
-        type: Number,
+    state: {
+        type: String,
         required: true
     },
-    creditCardExpirationDate: {
+    zipCode: {
         type: Number,
         required: true
     }
 })
 
-module.exports = mongoose.model('billing', billingSchema)
+module.exports = mongoose.model('shipping', shippingSchema)
+
+

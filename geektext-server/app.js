@@ -22,6 +22,9 @@ app.use('/post', postRoutes)
 const patchRoutes = require('./routes/patches');
 app.use('/patch', patchRoutes)
 
+const deleteRoutes = require('./routes/deletes');
+app.use('/delete', deleteRoutes)
+
 
 
 //Sample route 

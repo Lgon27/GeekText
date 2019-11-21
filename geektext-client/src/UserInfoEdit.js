@@ -103,7 +103,7 @@ class userInfoEdit extends Component {
                             <h3>Edit User Information for {this.state.loginID}</h3>
                             <div>
                                 <span className='textform'>
-                                    <TextField label="First Name" defaultValue={this.state.loginID} onChange={this.handleFirstNameChange} />
+                                    <TextField label="First Name" defaultValue={this.state.firstName} onChange={this.handleFirstNameChange} />
                                 </span>
                                 <span className='textform'>
                                     <TextField label="Last Name" defaultValue={this.state.lastName} onChange={this.HandleLastNameChange} />
@@ -133,7 +133,7 @@ class userInfoEdit extends Component {
         else {
             return (
                 <div>
-                    <UserManagement loginID={this.state.loginID} return={true} editUserFlag={false} name={this.state.name} emailAddress={this.state.emailAddress} homeAddress={this.state.homeAddress} nickname={this.state.nickname} />
+                    <UserManagement loginID={this.state.loginID} return={true} updateCounter={0} editUserFlag={false} name={this.state.name} emailAddress={this.state.emailAddress} homeAddress={this.state.homeAddress} nickname={this.state.nickname} />
                 </div>
             )
         }

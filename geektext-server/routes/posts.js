@@ -5,6 +5,7 @@ const router = express.Router();
 
 const userSchema = require('../models/users')
 const billingSchema = require('../models/billing')
+const shippingSchema = require('../models/shipping')
 
 //post a user 
 router.post('/user', (req, res) => {
@@ -13,7 +14,6 @@ router.post('/user', (req, res) => {
         loginPassword: req.body.loginPassword,
         name: req.body.name,
         emailAddress: req.body.emailAddress,
-        homeAddress: req.body.homeAddress,
         nickname: req.body.nickname
     })
 
@@ -21,6 +21,7 @@ router.post('/user', (req, res) => {
         res.json(data);
     }).catch(err => {
         res.json({ message: err });
+        console.log(err)
     })
 
 
@@ -29,10 +30,27 @@ router.post('/user', (req, res) => {
 router.post('/billing', (req, res) => {
     const billing = new billingSchema({
         loginID: req.body.loginID,
-        shippingAddress: req.body.shippingAddress,
+        streetAddress: req.body.streetAddress,
         creditCardNumber: req.body.creditCardNumber,
         creditCardCCV: req.body.creditCardCCV,
         creditCardExpirationDate: req.body.creditCardExpirationDate
+    })
+
+    billing.save().then(data => {
+        res.json(data);
+    }).catch(err => {
+        res.json({ message: err });
+    })
+
+})
+
+router.post('/shipping', (req, res) => {
+    const billing = new shippingSchema({
+        loginID: req.body.loginID,
+        streetAddress: req.body.streetAddress,
+        city: req.body.city,
+        state: req.body.state,
+        zipCode: req.body.zipCode
     })
 
     billing.save().then(data => {

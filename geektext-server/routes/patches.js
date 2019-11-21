@@ -62,6 +62,15 @@ router.patch('/updateAll/:loginID', async (req, res) => {
     }
 })
 
+router.patch('/updateLogin/:loginID', async (req, res) => {
+    try {
+        const updatedPost = await users.updateOne({ loginID: req.params.loginID }, { $set: { loginID: req.body.loginID, loginPassword: req.body.loginPassword } })
+        res.send(updatedPost)
+    } catch (err) {
+        res.json({ message: err })
+    }
+})
+
 
 
 

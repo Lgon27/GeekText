@@ -10,10 +10,10 @@ class Billing extends Component {
             shippingAddress: '',
             creditCardNumber: '',
             creditCardCCV: '',
-            creditCardExpirationDate: ''
+            creditCardExpirationDate: '',
+            cardList: []
 
         }
-
         this.handleCCNumChange = this.handleCCNumChange.bind(this);
         this.handleCCVChange = this.handleCCVChange.bind(this);
         this.handleExpDateChange = this.handleExpDateChange.bind(this);
@@ -65,12 +65,23 @@ class Billing extends Component {
         })
     }
 
+    pullBillingInfo() {
+
+
+        return (
+            <div>
+                <p>Test </p>
+            </div>
+        )
+    }
+
     render() {
 
         return (
             <div>
                 <h3>Billing Information</h3>
-                <div>Sample CC Information</div>
+                <div>{this.pullBillingInfo()}</div>
+
 
 
                 <form onSubmit={this.handleSubmit}>

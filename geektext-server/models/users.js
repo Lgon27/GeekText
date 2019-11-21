@@ -34,10 +34,6 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    homeAddress: {
-        type: String,
-        required: true
-    },
     nickname: {
         type: String,
         required: true

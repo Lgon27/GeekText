@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const users = require('../models/users')
 const billing = require('../models/billing')
+const shipping = require('../models/shipping')
 
 //returns all users in the db
 router.get('/users', async (req, res) => {
@@ -21,7 +22,7 @@ router.get('/users/:loginID/:loginPassword', async (req, res) => {
         var count = Object.keys(userData).length
 
         if (count > 0 && req.params.loginPassword == userData[0].loginPassword) {
-            res.status(202).send('Login Successful')
+            res.status(202).send(userData)
         }
         else {
             res.status(404).send('Incorrect Credentials')
@@ -45,6 +46,15 @@ router.get('/specificUser/:loginID', async (req, res) => {
     try {
         const user = await users.find({ "loginID": req.params.loginID })
         res.json(user)
+    } catch (err) {
+        res.json({ message: err });
+    }
+})
+
+router.get('/shipping/:loginID', async (req, res) => {
+    try {
+        const ship = await shipping.find({ "loginID": req.params.loginID })
+        res.json(ship)
     } catch (err) {
         res.json({ message: err });
     }
