@@ -9,12 +9,6 @@
     color: black;
     cursor: pointer;
 }
-.dv-star-rating-non-editable{
-    margin-top:12px;
-}
-.label {
-    margin: 0px 8px 0px 0px!;
-}
 .book-icon {
     height: inherit;
 }
@@ -28,9 +22,6 @@
     color: black;
     font-weight: 400;
     max-height: 400px;
-}
-.card-image {
-    min-height: 465px;
 }
 .cart{
     margin-top:40px;
@@ -53,20 +44,21 @@
 .item-desc{
     align-self:center;
 }
+<<<<<<< HEAD
 .sortBy{
     margin-bottom: 5%;
     margin-top: 5%; 
     padding: 0px 8px 0px 8px;
     width: fit-content; 
-    background: #f080805e;
+    background: #ee6e73;
     border-radius: 8px;
 }
 .sortButton{
     height: 36px;
-    background: #f080805e;
+    background: lightcoral;
     padding: 0px 12px 0px 12px;
     font-size: 14px;
-    border-width: 0px 0px 0px 0px;
+    border-width: 0px 0px 0px 2px;
     width: fit-content;
 }
 label {
@@ -75,25 +67,18 @@ label {
     color: black;
     margin: 0px 12px 0px 12px
 }
-.collection-item.avatar .item-save{
-   position: absolute;
-   top: 182px;
-   right: 20px;
+=======
+>>>>>>> 90e86d8797d938b6c496dcebf9c5b049b09df477
+.save-later{
+    position: relative;
+    right: -400px;
+    top: 175px;
+    display: block;
 }
 .delete{
-   position: absolute;
-   top: 80px;
-   right: 10px;
+    position: relative;
+    right: -100px;
+    top: 77px;
+    display: block;
 }
-.bookPrice{
-    margin: -16px 0px 0px 10px;
-    position: absolute;
-    z-index: 10;
-    color: white;
-    background: darkolivegreen;
-    border-radius: 8px;
-    padding: 6px;
-    min-width: 80px;
-    text-align: center;
-    font-size: 14px;
-}
+

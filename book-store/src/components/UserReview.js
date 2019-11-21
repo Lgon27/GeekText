@@ -29,8 +29,9 @@ class UserReview extends Component {
 
     this.changeRating = this.changeRating.bind(this);
 
+    // TODO
     // this.userLoginID = this.props.loginID;
-    this.userLoginID = "thoan006";
+    this.userLoginID = "thoan006";  // Temporary hardcode until Login is settled
 
     console.log("Login ID: " + this.userLoginID);
 
