@@ -7,7 +7,7 @@ class Home extends Component{
 
     constructor(props){
         super(props)
-        this.state = { books: [], sortedBy: '' }
+        this.state = { books: [], sortedBy: '', items: [] }
         this.sortByPriceAsc = this.sortByPriceAsc.bind(this);
         this.sortByAuthorAsc = this.sortByAuthorAsc.bind(this);
         this.sortByDateAsc = this.sortByDateAsc.bind(this);
@@ -22,6 +22,12 @@ class Home extends Component{
           })
           console.log(this.state.books);
           
+          fetch('http://localhost:3000/get/cartItems')
+          .then(res => res.json())
+          .then( items => {
+            this.setState({ items }); // Notify your component that products have been fetched
+          })
+          console.log(this.state.items);  
       }
 
       addToCart(book){
