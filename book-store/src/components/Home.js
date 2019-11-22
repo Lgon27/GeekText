@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import StarRatingComponent from "react-star-rating-component";
 import { Link } from "react-router-dom";
+import "./book_style.css";
 
 class Home extends Component {
   constructor(props) {
@@ -136,6 +137,7 @@ class Home extends Component {
             </button>
           </span>
         </div>
+
         <div className="box">
           {books.map(book => (
             <div className="card" key={book._id}>
@@ -145,13 +147,22 @@ class Home extends Component {
                   <b>${book.price.toFixed(2)}</b>
                 </p>
 
-                <span
-                  to="/"
-                  className="btn-floating halfway-fab waves-effect waves-light red"
-                  onClick={() => this.addToCart(book)}
-                >
-                  <i className="material-icons">add_shopping_cart</i>
-                </span>
+                <div className="buttonDetails">
+                  <Link
+                    to="/book_details"
+                    className="btn-floating waves-effect waves-light blue"
+                  >
+                    <i className="material-icons">view_headline</i>
+                  </Link>
+                  &emsp;
+                  <span
+                    to="/"
+                    className="btn-floating waves-effect waves-light red"
+                    onClick={() => this.addToCart(book)}
+                  >
+                    <i className="material-icons">add_shopping_cart</i>
+                  </span>
+                </div>
               </div>
 
               <div className="card-content">
@@ -167,9 +178,6 @@ class Home extends Component {
                   starCount={5}
                   value={book.rating}
                 />
-                <Link to="/book_details">
-                  <b>Book Details</b>
-                </Link>
               </div>
             </div>
           ))}

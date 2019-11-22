@@ -1,22 +1,41 @@
 import React, { Component } from "react";
 import "./book_style.css";
-import book from "./book.png";
 import rating from "./rating.png";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { object } from "prop-types";
 
 export class book_details extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { books: [], sortedBy: "" };
+  }
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
+    fetch("http://localhost:3000/get/books")
+      .then(res => res.json())
+      .then(books => {
+        this.setState({ books }); // Notify your component that products have been fetched
+      });
+    console.log(this.state.books);
+  }
+
   render() {
+    const books = this.state.books;
+    const found = books.find(price => (price = 15));
+
     return (
       <div className="Book">
         <header className="Book-header">
-          <h1>Romeo and Juliet</h1>
+          <h1>Gone With the Wind</h1>
 
           <a class="lightbox" href="#cover">
-            <img src={book} />
+            <img src="https://images-na.ssl-images-amazon.com/images/I/81fWm4C8vJL.jpg"></img>
           </a>
+
           <div class="lightbox-target" id="cover">
-            <img src={book} />
+            <img src="https://images-na.ssl-images-amazon.com/images/I/81fWm4C8vJL.jpg"></img>
             <a class="lightbox-close" href="#"></a>
           </div>
 
@@ -30,32 +49,44 @@ export class book_details extends Component {
             <tbody>
               <tr>
                 <th scope="row">Author</th>
-                <td>William Shakespeare</td>
+                <td>Margaret Mitchell</td>
               </tr>
               <tr>
                 <th scope="row">Biography</th>
-                <td>He was an English poet, playwright, and actor.</td>
+                <td>
+                  He was an English poet, playwright, and actor.Margaret
+                  Munnerlyn Mitchell (November 8, 1900 – August 16, 1949) was an
+                  American novelist, and journalist. Mitchell wrote only one
+                  novel, published during her lifetime, the American Civil
+                  War-era novel Gone with the Wind, for which she won the
+                  National Book Award for Most Distinguished Novel of 1936 and
+                  the Pulitzer Prize for Fiction in 1937.
+                </td>
               </tr>
               <tr>
                 <th scope="row">Description</th>
                 <td>
                   <p>
-                    Two young star-crossed lovers whose deaths ultimately
-                    reconcile their feuding families.
+                    The story is set in Clayton County and Atlanta, both in
+                    Georgia, during the American Civil War and Reconstruction
+                    Era. It depicts the struggles of young Scarlett O'Hara, the
+                    spoiled daughter of a well-to-do plantation owner, who must
+                    use every means at her disposal to claw her way out of
+                    poverty following Sherman's destructive "March to the Sea".
                   </p>
                 </td>
               </tr>
               <tr>
                 <th scope="row">Genre</th>
-                <td>Shakespearean tragedy</td>
+                <td>Historical Fiction</td>
               </tr>
               <tr>
                 <th scope="row">Publisher</th>
-                <td>Simon & Schuster</td>
+                <td>Macmillan Publishers</td>
               </tr>
               <tr>
                 <th scope="row">Release date</th>
-                <td>Between 1595 - 1597</td>
+                <td>June 30, 1936</td>
               </tr>
               <tr>
                 <th scope="row">Book rating</th>
@@ -68,15 +99,14 @@ export class book_details extends Component {
                 <td>Excellent book. It is both scholarly and entertaining.</td>
               </tr>
               <tr>
-                <th scope="row">Other books by Shakespeare</th>
+                <th scope="row">Books by</th>
                 <td>
                   <a
                     className="Book-link"
-                    href="http://shakespeare.mit.edu/"
-                    target="_blank"
+                    href="/mitchell"
                     rel="noopener noreferrer"
                   >
-                    List of books
+                    Margaret Mitchell
                   </a>
                 </td>
               </tr>
