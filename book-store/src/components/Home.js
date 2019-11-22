@@ -10,11 +10,7 @@ class Home extends Component{
 
     constructor(props){
         super(props)
-<<<<<<< HEAD
-        this.state = { books: [], sortedBy: '', items: [] }
-=======
-        this.state = { books: [], sortedBy: '', bookDetailsShow: false }
->>>>>>> 5df42faa230a2aaa0d36a37538bcd169c243a01e
+        this.state = { books: [], sortedBy: '', items: [], bookDetailsShow: false }
         this.sortByPriceAsc = this.sortByPriceAsc.bind(this);
         this.sortByAuthorAsc = this.sortByAuthorAsc.bind(this);
         this.sortByDateAsc = this.sortByDateAsc.bind(this);
@@ -32,7 +28,6 @@ class Home extends Component{
             this.setState({ books}); // Notify your component that products have been fetched
           })
           console.log(this.state.books);
-<<<<<<< HEAD
           
           fetch('http://localhost:3000/get/cartItems')
           .then(res => res.json())
@@ -40,9 +35,6 @@ class Home extends Component{
             this.setState({ items }); // Notify your component that products have been fetched
           })
           console.log(this.state.items);  
-=======
-
->>>>>>> 5df42faa230a2aaa0d36a37538bcd169c243a01e
       }
 
       addToCart(book){
