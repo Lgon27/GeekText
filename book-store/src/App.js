@@ -6,24 +6,26 @@ import Cart from './components/Cart'
 import LogIn from './components/UserManagement/LogIn'
 import UserSignup from './components/UserManagement/UserSignup'
 import Reviews from './components/UserReview'
+import book_details from "./components/book_details";
+import mitchell from "./components/mitchell";
 
 
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
-      <div className="App">
-
-        <Navbar/>
+        <div className="App">
+          <Navbar />
           <Switch>
-              <Route exact path="/" component={Home}/>
-              <Route path="/cart" component={Cart}/>
-              <Route path="/reviews" component={Reviews}/>
-              <Route path="/login" component={LogIn}/>
-              <Route path="/signup" component={UserSignup}/>
-              
-            </Switch>
-       </div>
+            <Route exact path="/" component={Home} />
+            <Route path="/cart" component={Cart} />
+            <Route path="/reviews" component={Reviews} />
+            <Route path="/book_details" component={book_details} />
+            <Route path="/mitchell" component={mitchell} />
+            <Route path="/login" component={LogIn}/>
+            <Route path="/signup" component={UserSignup}/>
+          </Switch>
+        </div>
       </BrowserRouter>
     );
   }
