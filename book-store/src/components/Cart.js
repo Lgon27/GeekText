@@ -72,7 +72,7 @@ class Cart extends Component{
             }).catch(function (error) {
                 console.log(error)
             })
-            window.location.reload()
+            //window.location.reload()
         
     }
 
@@ -97,7 +97,7 @@ class Cart extends Component{
             }).catch(function (error) {
                 console.log(error)
             })
-            window.location.reload()
+            //window.location.reload()
     }
     
 
@@ -149,7 +149,7 @@ class Cart extends Component{
                     </div> 
                     <div className="container">
                         <div className="collection">
-                            <li className="collection-item"><b>Total: ${this.state.total} </b></li>
+                            <li className="collection-item"><b>Total: ${this.state.total.toFixed(2)} </b></li>
                         </div>
                             <div className="checkout">
                                 <button className="waves-effect waves-light btn">Checkout</button>
