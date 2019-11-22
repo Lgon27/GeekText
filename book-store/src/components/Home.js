@@ -159,7 +159,7 @@ class Home extends Component {
 
                 <div className="buttonDetails">
                   <Link
-                    to="/book_details"
+                    to={"/book_details?bookTitle="+book.title}
                     className="btn-floating waves-effect waves-light blue"
                   >
                     <i className="material-icons">view_headline</i>
