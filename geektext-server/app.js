@@ -1,24 +1,24 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const mongoose = require('mongoose'); //Used to interact with our mongoDB Database
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const mongoose = require("mongoose"); //Used to interact with our mongoDB Database
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 
 
 //Imports dotenv file
-require('dotenv/config')
+require("dotenv/config");
 app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //Middleware to import get routes
-const getRoutes = require('./routes/gets');
-app.use('/get', getRoutes)
+const getRoutes = require("./routes/gets");
+app.use("/get", getRoutes);
 
-const postRoutes = require('./routes/posts');
-app.use('/post', postRoutes)
+const postRoutes = require("./routes/posts");
+app.use("/post", postRoutes);
 
 const patchRoutes = require('./routes/patches')
 app.use('/patch', patchRoutes)
