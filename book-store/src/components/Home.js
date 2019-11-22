@@ -37,9 +37,17 @@ class Home extends Component {
         title: book.title,
         cover_image: book.cover_image,
         author: book.author,
-        price: book.price
+        price: book.price,
+        quantity:  1,
       })
-    });
+    })
+    .then( (response) => response.json())
+    .then( (responseJson) => {
+          alert("Book Added to Cart!")
+     })
+     .catch((error) => {
+          console.error(error);
+     });
   }
 
   sortByPriceAsc() {
