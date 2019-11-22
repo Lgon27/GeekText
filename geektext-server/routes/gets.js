@@ -6,6 +6,7 @@ const users = require('../models/users')
 const Books = require('../models/books')
 const Reviews = require('../models/reviews')
 const CartItems = require('../models/cartItems')
+const Save_for_later = require('../models/save_for_later')
 const PurchasedBooks = require('../models/purchasedbooks')
 const billingSchema = require('../models/billing')
 const shippingSchema = require('../models/shipping')
@@ -31,11 +32,23 @@ router.get('/books', async (req, res) => {
     }
 })
 
+//Cart Items
 router.get('/cartItems', async (req, res) => {
     try {
         const cartItems = await CartItems.find();
         res.json(cartItems);
 
+    } catch (err) {
+        res.json({ message: err });
+    }
+})
+
+//Save for Later Details
+router.get('/save_for_later', async (req, res) => {
+    try {
+        const save_for_later = await Save_for_later.find();
+        res.json(save_for_later);
+        
     } catch (err) {
         res.json({ message: err });
     }
