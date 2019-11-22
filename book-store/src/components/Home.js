@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import {Button} from 'react-bootstrap';
 import StarRatingComponent from 'react-star-rating-component';
 import {BookDetails} from './BookDetails.js';
-import {addToCart} from './actions/cartActions'
-import {connect} from 'react-redux'
 
 
 class Home extends Component{
@@ -158,7 +156,7 @@ class Home extends Component{
                             <p className = "bookPrice"><b>${book.price.toFixed(2)}</b></p>
 
                         <span to="/" className="btn-floating halfway-fab waves-effect waves-light red"
-                             onClick={()=>{this.handleClick(book.id)}}
+                             onClick={()=>{this.addToCart(book)}}
                             ><i className="material-icons">add_shopping_cart</i>
                         </span>
                     </div>
@@ -187,16 +185,5 @@ class Home extends Component{
 
 }
 
-const mapStateToProps = (state)=>{
-    return {
-      items: state.books
-    }
-  }
-const mapDispatchToProps = (dispatch)=>{
 
-    return{
-        addToCart: (id)=>{dispatch(addToCart(id))}
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(Home)
+export default Home
