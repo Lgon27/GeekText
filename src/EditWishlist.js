@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
+import {Link} from 'react-router-dom'
 
 
 class EditWishlist extends Component{
@@ -12,15 +13,14 @@ class EditWishlist extends Component{
       this.submitHandler = this.submitHandler.bind(this);
       this.state ={
           lists : [],
-          name: '',
-          update: 0,
+          update: 0
           
       }
     }
 
 
 componentDidMount() {
-    axios.get("http://localhost:9000/wishlist/loadlist/test")
+    axios.get("http://localhost:9000/wishlist/loadlist/" + this.props.user)
     .then(response => {
       this.setState({ lists: response.data});
     })
@@ -38,7 +38,7 @@ componentDidUpdate(){
     if(this.state.update != 0)
     {
       
-        axios.get("http://localhost:9000/wishlist/loadlist/test")
+        axios.get("http://localhost:9000/wishlist/loadlist/" + this.props.user)
     .then(response => {
       this.setState({ lists: response.data});
     })
@@ -105,13 +105,7 @@ render(){
      <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
              <li class="nav-item active">
-              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Shop</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Options</a>
+              <Link to="/" class="nav-link">Home <span class="sr-only">(current)</span></Link>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Wishlist</a>
@@ -121,13 +115,13 @@ render(){
                  let hre = "/Wishlist/"+lists._id;
                 
                  return(
-                   <a class="dropdown-item" href ={hre}>Wishlist {lists.list_name}</a>
+                   <Link to ={hre} class="dropdown-item" >Wishlist {lists.list_name}</Link>
                  );
 
 
                 })
                 }
-                <a class = "dropdown-item" href = "/Edit_Wishlist">Edit List</a>
+                <Link to= "/Edit_Wishlist" class="dropdown-item" >Edit List</Link>
 
               </div>
             </li>
