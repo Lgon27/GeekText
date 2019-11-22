@@ -147,19 +147,25 @@ class UserReview extends Component {
     let params = queryString.parse(this.props.location.search)
     const bookDisplayName = params.bookTitle
 
+
+
     // Create some map of book names and images.
-    var imageMap = new Object();
-    // imageMap["Gone With The Wind"] = Book1;
-    // imageMap["The Alchemist"] = Book2;
-    // imageMap["To Kill A Mockingbird"] = Book3;
-    // imageMap["Looking For Alaska"] = Book4;
-    // imageMap["The Da Vinci Code"] = Book5;
-    // imageMap["Peter Pan"] = Book6;
+    // Retrieve Book image
+    console.log(bookDisplayName)
+    Axios.get('http://localhost:3000/get/bookDetails?bookTitle='+bookDisplayName)
+        .then(response => {
+            let data = response.data;
+            this.bookImage = data[0].cover_image;
+        })
+        .catch(function (error) {
+            console.log(error)
+            alert('Could not find book details!')
+        })
 
     return (
       <div align='center'>
       <h2>Geektext Reviews</h2>
-      <img src={imageMap[bookDisplayName]}/>
+      <img style={{width:'300px',height:'400px'}} src={this.bookImage}/>
       <h2>{bookDisplayName}</h2>
 
       {renderedResponse.map(function(object) {
