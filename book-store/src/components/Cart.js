@@ -100,10 +100,6 @@ class Cart extends Component{
             window.location.reload()
     }
     
-    calculateTotal() {
-
-    }
-    
 
     handleChecked () {
         this.setState({isChecked: !this.state.isChecked});
@@ -113,17 +109,7 @@ class Cart extends Component{
     render() {
 
         const cartItems = this.state.cartItems;
-        
-        if (this.state.isChecked) {
-            this.state.total = 5
-        } else {
-            if (this.state.total !== 0) {
-                this.state.total = this.state.total - 5
-            }
-            else {
-                this.state.total = 0
-            }
-        }
+        this.state.cartItems.map(cartItem => (this.state.total = this.state.total + (cartItem.price * cartItem.quantity)));
     
         return(
 
@@ -163,12 +149,6 @@ class Cart extends Component{
                     </div> 
                     <div className="container">
                         <div className="collection">
-                            <li className="collection-item">
-                                <label>
-                                <input type="checkbox" onChange={ this.handleChecked }  />
-                                    <span>Book Protection($+5)</span>
-                                </label>
-                            </li>
                             <li className="collection-item"><b>Total: ${this.state.total} </b></li>
                         </div>
                             <div className="checkout">
