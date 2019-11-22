@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 /*
 DESCRIPTION: Stores cart information
 */
-const cartItemSchema = mongoose.Schema({
+const saveLaterSchema = mongoose.Schema({
     email: {
         type:String,
         required: true
@@ -32,4 +32,4 @@ const cartItemSchema = mongoose.Schema({
     },
 })
 
-module.exports = mongoose.model('cartItems', cartItemSchema)
+module.exports = mongoose.model('Save_for_later', saveLaterSchema)
