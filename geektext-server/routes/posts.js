@@ -93,6 +93,7 @@ router.post('/cart', (req, res) => {
             cover_image: req.body.cover_image,
             author: req.body.author,
             price: req.body.price,
+            quantity: req.body.quantity,
         })
     
         cartItem.save().then(data => {
