@@ -2,15 +2,17 @@
 const express = require('express');
 const router = express.Router();
 
-const Users = require('../models/users')
+const users = require('../models/users')
 const Books = require('../models/books')
 const Reviews = require('../models/reviews')
 const CartItems = require('../models/cartItems')
 const PurchasedBooks = require('../models/purchasedbooks')
+const billingSchema = require('../models/billing')
+const shippingSchema = require('../models/shipping')
 
 router.get('/users', async (req, res) => {
     try {
-        const users = await Users.find();
+        const users = await users.find();
         res.json(users);
 
     } catch (err) {
@@ -42,7 +44,7 @@ router.get('/cartItems', async (req, res) => {
 // User Details
 router.get('/userDetails', async (req, res) => {
     try {
-        const user = await Users.find({ loginID: req.query.loginID });
+        const user = await users.find({ loginID: req.query.loginID });
         res.json(user);
         console.log(user);
     } catch (err) {
@@ -101,5 +103,52 @@ router.get('/reviews', async (req, res) => {
         res.json({ message: err });
     }
 })
+
+//login check
+router.get('/users/:loginID/:loginPassword', async (req, res) => {
+    try {
+        const userData = await users.find({ "loginID": req.params.loginID })
+        var count = Object.keys(userData).length
+
+        if (count > 0 && req.params.loginPassword == userData[0].loginPassword) {
+            res.status(202).send(userData)
+        }
+        else {
+            res.status(404).send('Incorrect Credentials')
+        }
+    } catch (err) {
+        res.json({ message: err })
+    }
+
+})
+
+router.get('/billing/:loginID', async (req, res) => {
+    try {
+        const bill = await billing.find({ "loginID": req.params.loginID })
+        res.json(bill)
+    } catch (err) {
+        res.json({ message: err });
+    }
+})
+
+router.get('/specificUser/:loginID', async (req, res) => {
+    try {
+        const user = await users.find({ "loginID": req.params.loginID })
+        res.json(user)
+    } catch (err) {
+        res.json({ message: err });
+    }
+})
+
+router.get('/shipping/:loginID', async (req, res) => {
+    try {
+        const ship = await shipping.find({ "loginID": req.params.loginID })
+        res.json(ship)
+    } catch (err) {
+        res.json({ message: err });
+    }
+})
+
+
 
 module.exports = router;

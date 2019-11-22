@@ -5,12 +5,12 @@ import StarRatings from 'react-star-ratings';
 import { throwStatement } from '@babel/types';
 import queryString from 'query-string';
 
-import Book1 from '../images/Book1.jpg'
-import Book2 from '../images/Book2.jpg'
-import Book3 from '../images/Book3.jpg'
-import Book4 from '../images/Book4.jpg'
-import Book5 from '../images/Book5.jpg'
-import Book6 from '../images/Book6.jpg'
+// import Book1 from '../images/Book1.jpg'
+// import Book2 from '../images/Book2.jpg'
+// import Book3 from '../images/Book3.jpg'
+// import Book4 from '../images/Book4.jpg'
+// import Book5 from '../images/Book5.jpg'
+// import Book6 from '../images/Book6.jpg'
 
 class UserReview extends Component {
 
@@ -149,12 +149,12 @@ class UserReview extends Component {
 
     // Create some map of book names and images.
     var imageMap = new Object();
-    imageMap["Gone With The Wind"] = Book1;
-    imageMap["The Alchemist"] = Book2;
-    imageMap["To Kill A Mockingbird"] = Book3;
-    imageMap["Looking For Alaska"] = Book4;
-    imageMap["The Da Vinci Code"] = Book5;
-    imageMap["Peter Pan"] = Book6;
+    // imageMap["Gone With The Wind"] = Book1;
+    // imageMap["The Alchemist"] = Book2;
+    // imageMap["To Kill A Mockingbird"] = Book3;
+    // imageMap["Looking For Alaska"] = Book4;
+    // imageMap["The Da Vinci Code"] = Book5;
+    // imageMap["Peter Pan"] = Book6;
 
     return (
       <div align='center'>
