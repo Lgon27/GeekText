@@ -19,7 +19,7 @@ const billingSchema = mongoose.Schema({
         required: true
     },
     creditCardExpirationDate: {
-        type: Number,
+        type: String,
         required: true
     }
 })

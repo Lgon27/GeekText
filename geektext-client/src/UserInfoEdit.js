@@ -68,7 +68,6 @@ class userInfoEdit extends Component {
         Axios.patch(`http://localhost:3000/patch/updateAll/${this.state.loginID}`, {
             name: this.state.firstName + " " + this.state.lastName,
             emailAddress: this.state.emailAddress,
-            homeAddress: this.state.homeAddress,
             nickname: this.state.nickname
         }).then(response => {
             console.log('user update')

@@ -29,10 +29,12 @@ class UserManagement extends Component {
             cardCCV: '',
             cardExpDate: '',
             cardAddress: '',
-
-
+            streetAddress: '',
+            city: '',
+            state: '',
+            zipcode: '',
+            addressList: []
         }
-
         this.setEditUserFlag = this.setEditUserFlag.bind(this);
         this.setEditLoginFlag = this.setEditLoginFlag.bind(this);
         this.handleCardNumChange = this.handleCardNumChange.bind(this);
@@ -41,6 +43,11 @@ class UserManagement extends Component {
         this.handleCardAddrChange = this.handleCardAddrChange.bind(this);
         this.handleCardSubmit = this.handleCardSubmit.bind(this);
 
+        this.handleStreetAddrChange = this.handleStreetAddrChange.bind(this);
+        this.handleCityChange = this.handleCityChange.bind(this);
+        this.handleStateChange = this.handleStateChange.bind(this);
+        this.handleZipCodeChange = this.handleZipCodeChange.bind(this)
+        this.handleAddressSubmit = this.handleAddressSubmit.bind(this)
 
     }
 
@@ -92,6 +99,30 @@ class UserManagement extends Component {
                 console.log(error)
                 alert('error here')
             })
+
+        Axios.get(`http://localhost:3000/get/shipping/${loginID}`)
+            .then(response => {
+                let data = response.data;
+                console.log(data)
+
+                var shipList = [];
+
+                for (let i in data) {
+                    shipList.push(data[i].streetAddress)
+                }
+
+                this.setState({
+                    addressList: shipList
+                })
+
+                console.log(this.state.addressList)
+            })
+            .catch(function (error) {
+                console.log(error)
+                alert('error here')
+            })
+
+
     }
 
 
@@ -114,6 +145,8 @@ class UserManagement extends Component {
         this.setState({
             cardNumber: event.target.value
         })
+
+
     }
     handleCCVChange(event) {
         this.setState({
@@ -135,26 +168,32 @@ class UserManagement extends Component {
         event.preventDefault()
         console.log('submitted')
 
-        Axios.post('http://localhost:3000/post/billing', {
-            loginID: this.state.loginID,
-            streetAddress: this.state.cardAddress,
-            creditCardNumber: this.state.cardNumber,
-            creditCardCCV: this.state.cardCCV,
-            creditCardExpirationDate: this.state.cardExpDate
-        }).then(response => {
-            let cardList = this.state.billingList
-            cardList.push(this.state.cardNumber)
-            this.setState({
-                billingList: cardList
-            })
-            console.log('billing information added')
-            alert('Billing Information Submitted')
-        }).catch(function (error) {
-            console.log(error)
+        if (this.verifyCardInfo()) {
+            console.log('dointhis')
+            Axios.post('http://localhost:3000/post/billing', {
+                loginID: this.state.loginID,
+                streetAddress: this.state.cardAddress,
+                creditCardNumber: this.state.cardNumber,
+                creditCardCCV: this.state.cardCCV,
+                creditCardExpirationDate: this.state.cardExpDate
+            }).then(response => {
+                let cardList = this.state.billingList
+                cardList.push(this.state.cardNumber)
+                this.setState({
+                    billingList: cardList
+                })
+                console.log('billing information added')
+                alert('Billing Information Submitted')
+            }).catch(function (error) {
+                console.log(error)
 
-        })
+            })
+        }
+
 
         this.forceUpdate();
+
+        event.target.reset();
 
     }
 
@@ -192,6 +231,16 @@ class UserManagement extends Component {
         return true
     }
 
+    verifyOnlyForwardSlash(input) {
+        let inputString = input;
+        var pattern = new RegExp(/[~`!#$%\^&*+=\-\[\]\\';,{}|\\":<>\?abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]/)
+
+        if (pattern.test(inputString)) {
+            return false;
+        }
+        return true
+    }
+
     verifyCardInfo() {
         let cardNumber = this.state.cardNumber;
         let cardCCV = this.state.cardCCV;
@@ -199,15 +248,172 @@ class UserManagement extends Component {
         let cardAddress = this.state.cardAddress;
 
         let cardFlag = this.verifyNoSpecChars(cardNumber)
+        let CCVFlag = this.verifyNoSpecChars(cardCCV)
+        let expDateFlag = this.verifyOnlyForwardSlash(cardExpDate)
+        let zipCodeFlag = this.verifyNoSpecChars(cardAddress)
 
-        if (!cardFlag) {
+        //Verify CC Num
+        if (!cardFlag || cardNumber.length != 10) {
+            alert('Card number must be 16 digits long in the form xxxx xxxx xxxx xxxx\ncard number must contain special characters or letters')
+            return false
+        }
+
+        //Verify CCV
+        if (!CCVFlag || cardCCV.length != 3) {
+            alert('CCV must be 3 digits long in the form xxx \CCV must not contain special characters or letters')
+            return false
+        }
+
+        //Verify Exp Date
+        if (cardExpDate.includes('/')) {
+            let aux = cardExpDate.split("/")
+            if (aux.length != 2 || !expDateFlag || aux[0].length != 2 || aux[1].length != 2) {
+                alert('Card expiration date must be in the form mo/yr and must not contain numbers or special characters aside from /')
+                return false
+
+            }
+        }
+        else {
+            alert('Card expiration date must be in the form mo/yr and must not contain numbers or special characters aside from /')
+            return false
+        }
+
+        if (!zipCodeFlag || cardAddress.length != 5) {
+            alert('Zip Code must be 5 digits long in the form xxxxx\nZip Code must not contain special characters or letters')
             return false
         }
 
         return true
+    }
 
+    handleStreetAddrChange(event) {
+        this.setState({
+            streetAddress: event.target.value
+        })
+        console.log(this.state.streetAddress)
+        console.log(this.state.loginID)
 
     }
+    handleCityChange(event) {
+        this.setState({
+            city: event.target.value
+        })
+        console.log(this.state.city)
+    }
+    handleStateChange(event) {
+        this.setState({
+            state: event.target.value
+        })
+        console.log(this.state.state)
+    }
+
+    handleZipCodeChange(event) {
+        this.setState({
+            zipcode: event.target.value
+        })
+        console.log(this.state.zipcode)
+    }
+
+    handleAddressSubmit(event) {
+        event.preventDefault()
+
+        if (this.verifyAddress(this.state.streetAddress, this.state.city, this.state.state, this.state.zipcode)) {
+            Axios.post('http://localhost:3000/post/shipping', {
+                loginID: this.state.loginID,
+                streetAddress: this.state.streetAddress,
+                city: this.state.city,
+                state: this.state.state,
+                zipCode: this.state.zipcode
+
+            }).then(response => {
+                let addrList = this.state.addressList
+                addrList.push(this.state.streetAddress)
+                this.setState({
+                    addressList: addrList
+                })
+            }).catch(function (error) {
+                console.log(error)
+            })
+        }
+        else {
+            alert('Street Address & Zip Code must not contain any special characters\nCity & State must contain no special characters or numbers\nZip Code must be 5 digits long')
+        }
+
+        this.forceUpdate();
+
+        event.target.reset();
+    }
+
+    deleteAddr(addr) {
+        console.log(addr)
+
+
+        Axios.delete(`http://localhost:3000/delete/shipping/${addr}`)
+            .then(response => {
+                let addrList = this.state.addressList
+                for (let i in addrList) {
+                    if (addrList[i] === addr) {
+                        addrList.splice(i, 1)
+                    }
+                }
+
+                this.setState({
+                    addressList: addrList
+                })
+
+                console.log(addrList)
+
+            }).catch(function (error) {
+                console.log(error)
+            })
+    }
+
+
+    verifyAddress(streetAddress, city, state, zipCode) {
+        let streetFlag = this.verifyNoSpecCharsAddr(streetAddress)
+        let cityFlag = this.verifyNoNum(city)
+        let stateFlag = this.verifyNoNum(state)
+        let zipFlag = this.verifyNoSpecCharsZip(zipCode)
+
+        if (streetFlag && cityFlag && stateFlag && zipFlag && zipCode.length == 5) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    verifyNoSpecCharsZip(input) {
+        let inputString = input;
+        var pattern = new RegExp(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]/)
+
+        if (pattern.test(inputString)) {
+            return false;
+        }
+        return true
+    }
+
+    verifyNoSpecCharsAddr(input) {
+        let inputString = input;
+        var pattern = new RegExp(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/)
+
+        if (pattern.test(inputString)) {
+            return false;
+        }
+        return true
+    }
+
+    verifyNoNum(input) {
+        let inputString = input;
+        var pattern = new RegExp(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?123456789]/)
+
+        if (pattern.test(inputString)) {
+            return false;
+        }
+        return true
+
+    }
+
+
 
 
 
@@ -263,12 +469,43 @@ class UserManagement extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <input type="submit" value="Sign Up" />
+                            <input type="submit" value="Add Card" />
                         </form>
                     </div>
                     <div></div>
                     <div>
                         <h3>Add Shipping Address</h3>
+                        <div>
+                            {this.state.addressList.map((addr, index) => (
+                                <p><b>Card:</b> {addr} <IconButton aria-label="delete" onClick={this.deleteAddr.bind(this, addr)} >
+                                    <DeleteIcon fontSize="small" />
+                                </IconButton>
+                                </p>
+                            ))}
+                        </div>
+                        <form onSubmit={this.handleAddressSubmit}>
+                            <div>
+                                <span className='textform'>
+                                    <TextField label="Street Address" onChange={this.handleStreetAddrChange} />
+                                </span>
+                            </div>
+                            <div>
+                                <span className='textform'>
+                                    <TextField label="City" onChange={this.handleCityChange} />
+                                </span>
+                            </div>
+                            <div>
+                                <span className='textform'>
+                                    <TextField label="State/Region/Province" onChange={this.handleStateChange} />
+                                </span>
+                            </div>
+                            <div>
+                                <span className='textform'>
+                                    <TextField label="Zip Code" onChange={this.handleZipCodeChange} />
+                                </span>
+                            </div>
+                            <input type="submit" value="Add Address" />
+                        </form>
                     </div>
                 </div >
             )

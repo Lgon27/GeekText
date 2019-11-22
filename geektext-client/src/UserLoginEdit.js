@@ -62,31 +62,56 @@ class userLoginEdit extends Component {
     updateUser() {
 
 
-        if (this.state.oldPasswordConfirm === this.state.oldPassword) {
-            if (this.state.loginPassword === this.state.loginConfirm) {
-                Axios.patch(`http://localhost:3000/patch/updateLogin/${this.state.loginID}`, {
-                    loginID: this.state.loginID,
-                    loginPassword: this.state.loginPassword
-                }).then(response => {
-                    console.log('user update')
-                }).catch(function (error) {
-                    console.log(error)
-                })
-                alert('User Updated')
-                this.setState({
-                    return: true
-                })
+        if (this.verifyPassword(this.state.loginPassword)) {
+            if (this.state.oldPasswordConfirm === this.state.oldPassword) {
+                if (this.state.loginPassword === this.state.loginConfirm) {
+                    Axios.patch(`http://localhost:3000/patch/updateLogin/${this.state.loginID}`, {
+                        loginID: this.state.loginID,
+                        loginPassword: this.state.loginPassword
+                    }).then(response => {
+                        console.log('user update')
+                    }).catch(function (error) {
+                        console.log(error)
+                    })
+                    alert('User Updated')
+                    this.setState({
+                        return: true
+                    })
+                }
+                else {
+                    alert('Passwords must match')
+                }
             }
             else {
-                alert('Passwords must match')
+                alert('Incorrect Password')
             }
+        } else {
+            alert('Password must contain a number, a special character, and both lowercase and uppercase letters\npassword must be at least 10 digits long')
+        }
+
+
+
+
+
+    }
+
+    verifyPassword(password) {
+        let charFilter = new RegExp(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/)
+        let numFilter = new RegExp(/[123456789]/)
+        let lowerCaseFilter = new RegExp(/[abcdefghijklmnopqrstuvwxyz]/)
+        let upperCaseFilter = new RegExp(/[ABCDEFGHHIJKLMNOPQRSTUVWXYZ]/)
+
+        let charFlag = charFilter.test(password)
+        let numFlag = numFilter.test(password)
+        let lowerCaseFlag = lowerCaseFilter.test(password)
+        let upperCaseFlag = upperCaseFilter.test(password)
+
+        if (charFlag & numFlag & lowerCaseFlag & upperCaseFlag & password.length >= 10) {
+            return true;
         }
         else {
-            alert('Incorrect Password')
+            return false
         }
-
-
-
     }
 
     render() {

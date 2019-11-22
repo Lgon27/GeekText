@@ -16,4 +16,14 @@ router.delete('/billing/:cardNumber', async (req, res) => {
     }
 })
 
+
+router.delete('/shipping/:streetAddress', async (req, res) => {
+    try {
+        const removedPost = await shippingSchema.deleteOne({ streetAddress: req.params.streetAddress })
+        res.send(removedPost)
+    } catch (err) {
+        res.json({ message: err })
+    }
+})
+
 module.exports = router;

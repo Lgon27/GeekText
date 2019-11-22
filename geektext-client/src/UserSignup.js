@@ -74,7 +74,7 @@ class UserSignup extends Component {
         let creditCardExpirationDate = this.state.creditCardExpirationDate;
 
 
-        if (this.verifyEmailAddress(emailAddress) & this.verifyAddress(this.state.streetAddress, this.state.city, this.state.state, this.state.zipcode)) {
+        if (this.verifyEmailAddress(emailAddress) & this.verifyAddress(this.state.streetAddress, this.state.city, this.state.state, this.state.zipcode) & this.verifyPassword(this.state.loginPassword)) {
             this.createUser(loginID, loginPassword, name, emailAddress, homeAddress,
                 nickname, shippingAddress, creditCardNumber, creditCardCCV, creditCardExpirationDate)
             this.setState({
@@ -82,7 +82,7 @@ class UserSignup extends Component {
             })
         }
         else {
-            alert('Email must be of the form abcabc@domain.com\nStreet Address & Zip Code must not contain any special characters\nCity & State must contain no special characters or numbers')
+            alert('Email must be of the form abcabc@domain.com\nStreet Address & Zip Code must not contain any special characters\nCity & State must contain no special characters or numbers\nPassword must contain a number, a special character, and both lowercase and uppercase letters\npassword must be at least 10 digits long')
         }
 
 
@@ -112,9 +112,9 @@ class UserSignup extends Component {
         Axios.post('http://localhost:3000/post/shipping', {
             loginID: this.state.loginID,
             streetAddress: this.state.streetAddress,
-            city: this.state.streetAddress,
-            state: this.state.streetAddress,
-            zipCode: this.state.streetAddress
+            city: this.state.city,
+            state: this.state.state,
+            zipCode: this.state.zipcode
 
         }).then(response => {
             console.log('user created')
@@ -234,7 +234,7 @@ class UserSignup extends Component {
         let stateFlag = this.verifyNoNum(state)
         let zipFlag = this.verifyNoSpecChars(zipCode)
 
-        if (streetFlag && cityFlag && stateFlag && zipFlag) {
+        if (streetFlag && cityFlag && stateFlag && zipFlag && zipCode.length == 5) {
             return true
         }
         else {
@@ -250,7 +250,6 @@ class UserSignup extends Component {
             return false;
         }
         return true
-
     }
 
     verifyNoNum(input) {
@@ -262,6 +261,24 @@ class UserSignup extends Component {
         }
         return true
 
+    }
+    verifyPassword(password) {
+        let charFilter = new RegExp(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/)
+        let numFilter = new RegExp(/[123456789]/)
+        let lowerCaseFilter = new RegExp(/[abcdefghijklmnopqrstuvwxyz]/)
+        let upperCaseFilter = new RegExp(/[ABCDEFGHHIJKLMNOPQRSTUVWXYZ]/)
+
+        let charFlag = charFilter.test(password)
+        let numFlag = numFilter.test(password)
+        let lowerCaseFlag = lowerCaseFilter.test(password)
+        let upperCaseFlag = upperCaseFilter.test(password)
+
+        if (charFlag & numFlag & lowerCaseFlag & upperCaseFlag & password.length >= 10) {
+            return true;
+        }
+        else {
+            return false
+        }
     }
 
 
