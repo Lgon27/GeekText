@@ -32,20 +32,30 @@ class Home extends Component{
       }
 
       addToCart(book){
-        fetch('http://localhost:3000/post/cart', {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-            email: 'sgarc349@fiu.edu',
-            title: book.title,
-            cover_image: book.cover_image,
-            author: book.author,
-            price: book.price,
+     
+            fetch('http://localhost:3000/post/cart', {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                email: 'sgarc349@fiu.edu',
+                title: book.title,
+                cover_image: book.cover_image,
+                author: book.author,
+                price: book.price,
+                quantity:  1,
+                })
             })
-          })
+            .then( (response) => response.json())
+            .then( (responseJson) => {
+                alert("Book Added to Cart!")
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        
       }
 
       sortByPriceAsc() {
