@@ -57,7 +57,7 @@ class UserManagement extends Component {
 
     componentDidMount() {
         let loginID = this.props.loginID
-
+        console.log('this happened')
         Axios.get(`http://localhost:3000/get/specificUser/${loginID}`)
             .then(response => {
                 let data = response.data;
@@ -331,6 +331,7 @@ class UserManagement extends Component {
                 this.setState({
                     addressList: addrList
                 })
+                console.log(response)
             }).catch(function (error) {
                 console.log(error)
             })

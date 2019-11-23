@@ -8,8 +8,8 @@ const Reviews = require('../models/reviews')
 const CartItems = require('../models/cartItems')
 const Save_for_later = require('../models/save_for_later')
 const PurchasedBooks = require('../models/purchasedbooks')
-const billingSchema = require('../models/billing')
-const shippingSchema = require('../models/shipping')
+const billing = require('../models/billing')
+const shipping = require('../models/shipping')
 
 router.get('/users', async (req, res) => {
     try {
@@ -48,7 +48,7 @@ router.get('/save_for_later', async (req, res) => {
     try {
         const save_for_later = await Save_for_later.find();
         res.json(save_for_later);
-        
+
     } catch (err) {
         res.json({ message: err });
     }
@@ -71,23 +71,23 @@ router.get('/purchasedbooks', async (req, res) => {
         var userId = req.query.user_id; // $_GET["user_id"]
         var bookDisplayName = req.query.bookTitle; // $_GET["bookTitle"]
 
-         let userPurchasedBook = await PurchasedBooks.find({user_id:userId, bookTitle:bookDisplayName});
+        let userPurchasedBook = await PurchasedBooks.find({ user_id: userId, bookTitle: bookDisplayName });
 
         // If user has not purchased book
-         if (userPurchasedBook.length == 0 ) {
+        if (userPurchasedBook.length == 0) {
             // Send some message back saying user hasn't purchased
             console.log("User has not purchased book");
             status = { purchased: false };
             res.json(status);
-         }
-         // If user has purchased book
-         else {
+        }
+        // If user has purchased book
+        else {
             console.log("User has purchased book");
             status = { purchased: true };
             res.json(status);
-         }
+        }
 
-         // res.json(userReviews)
+        // res.json(userReviews)
     } catch (err) {
         res.json({ message: err });
     }
@@ -99,19 +99,21 @@ router.get('/reviews', async (req, res) => {
         var bookDisplayName = req.query.bookTitle; // $_GET["bookTitle"]
         // console.log(bookDisplayName)
 
-         let userReviews = await Reviews.find({bookTitle:bookDisplayName}).sort({$natural:-1});
+        let userReviews = await Reviews.find({ bookTitle: bookDisplayName }).sort({ $natural: -1 });
 
         // If no reviews have been left
-         if (userReviews.length == 0) {
-           userReviews = [ { _id: 0,
-                              rating: 0,
-                              review: 'There is nothing here yet. Be the first to leave a review!',
-                              user_id: 'GeekText Staff',
-                              bookTitle: bookDisplayName,
-                              __v: 0 } ]
-         }
+        if (userReviews.length == 0) {
+            userReviews = [{
+                _id: 0,
+                rating: 0,
+                review: 'There is nothing here yet. Be the first to leave a review!',
+                user_id: 'GeekText Staff',
+                bookTitle: bookDisplayName,
+                __v: 0
+            }]
+        }
 
-         res.json(userReviews)
+        res.json(userReviews)
     } catch (err) {
         res.json({ message: err });
     }

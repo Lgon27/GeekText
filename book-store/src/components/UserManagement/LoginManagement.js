@@ -8,7 +8,7 @@ import { Route } from 'react-router-dom'
 import Home from '../Home';
 import { Button } from 'react-bootstrap';
 
-class LogIn extends Component {
+class LogInManagement extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -71,9 +71,7 @@ class LogIn extends Component {
 
         if (this.state.loginSuccessful === true) {
             return (
-
-                <Home loginID={this.state.loginID}></Home>
-                //<UserManagement loginID={this.state.loginID} updateCounter={0} name={this.state.name} emailAddress={this.state.emailAddress} homeAddress={this.state.homeAddress} nickname={this.state.name} />
+                <UserManagement loginID={this.state.loginID} updateCounter={0} name={this.state.name} emailAddress={this.state.emailAddress} homeAddress={this.state.homeAddress} nickname={this.state.name} />
             )
         }
         else {
@@ -97,4 +95,4 @@ class LogIn extends Component {
     }
 }
 
-export default LogIn
+export default LogInManagement

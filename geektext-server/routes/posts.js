@@ -13,6 +13,7 @@ const saveLaterSchema = require('../models/save_for_later')
 
 
 
+
 //post a user 
 router.post('/user', (req, res) => {
     const user = new userSchema({
@@ -69,58 +70,58 @@ router.post('/shipping', (req, res) => {
 
 router.post('/books', (req, res) => {
     const book = new bookSchema({
-            title: req.body.title,
-            cover_image: req.body.cover_image,
-            summary: req.body.summary,
-            genre: req.body.genre,
-            author: req.body.author,
-            price: req.body.price,
-            publish_date: req.body.publish_date,
-            author_bio: req.body.author_bio
-        })
+        title: req.body.title,
+        cover_image: req.body.cover_image,
+        summary: req.body.summary,
+        genre: req.body.genre,
+        author: req.body.author,
+        price: req.body.price,
+        publish_date: req.body.publish_date,
+        author_bio: req.body.author_bio
+    })
 
-        book.save().then(data => {
-           res.json(data);
-        }).catch(err => {
-            res.json({ message: err });
-        })
+    book.save().then(data => {
+        res.json(data);
+    }).catch(err => {
+        res.json({ message: err });
+    })
 
 })
 router.post('/cart', (req, res) => {
     const cartItem = new cartItemSchema({
-            email: req.body.email,
-            title: req.body.title,
-            cover_image: req.body.cover_image,
-            author: req.body.author,
-            price: req.body.price,
-            quantity: req.body.quantity,
-        })
-    
-        cartItem.save().then(data => {
-           res.json(data);
-           console.log(data)
-        }).catch(err => {
-            res.json({ message: err });
-        })
+        email: req.body.email,
+        title: req.body.title,
+        cover_image: req.body.cover_image,
+        author: req.body.author,
+        price: req.body.price,
+        quantity: req.body.quantity,
+    })
+
+    cartItem.save().then(data => {
+        res.json(data);
+        console.log(data)
+    }).catch(err => {
+        res.json({ message: err });
+    })
 
 })
 
 router.post('/save_for_later', (req, res) => {
     const saveLater = new saveLaterSchema({
-            email: req.body.email,
-            title: req.body.title,
-            cover_image: req.body.cover_image,
-            author: req.body.author,
-            price: req.body.price,
-            quantity: req.body.quantity,
-        })
-    
-        saveLater.save().then(data => {
-           res.json(data);
-           console.log(data)
-        }).catch(err => {
-            res.json({ message: err });
-        })
+        email: req.body.email,
+        title: req.body.title,
+        cover_image: req.body.cover_image,
+        author: req.body.author,
+        price: req.body.price,
+        quantity: req.body.quantity,
+    })
+
+    saveLater.save().then(data => {
+        res.json(data);
+        console.log(data)
+    }).catch(err => {
+        res.json({ message: err });
+    })
 
 })
 

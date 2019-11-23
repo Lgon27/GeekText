@@ -117,7 +117,7 @@ class UserSignup extends Component {
             zipCode: this.state.zipcode
 
         }).then(response => {
-            console.log('user created')
+            console.log(response.data)
         }).catch(function (error) {
             console.log(error)
         })
