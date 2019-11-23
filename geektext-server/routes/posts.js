@@ -13,8 +13,7 @@ const shippingSchema = require('../models/shipping')
 const saveLaterSchema = require('../models/save_for_later')
 const wishlist = require('../models/wishlist.model');
 const list = require('../models/list.model')
-
-
+const PurchasedBooks = require('../models/purchasedbooks')
 
 
 //post a user
@@ -128,7 +127,7 @@ router.post('/save_for_later', (req, res) => {
 
 })
 
-router.post('/checkout', (req, res) => {
+router.post('/checkout', async (req, res) => {
 
     const checkout = new checkoutSchema({
         user_id: req.body.user_id,
@@ -137,15 +136,24 @@ router.post('/checkout', (req, res) => {
 
     console.log(checkout);
 
-    checkout.save().then(data => {
-        console.log("Success\n");
-        res.json(data);
-        // TODO: REFRESH UI!
-    }).catch(err => {
-        console.log("Error\n");
-        res.json({ message: err });
-    })
+    let userPurchasedBook = await PurchasedBooks.find({ user_id: checkout.user_id, bookTitle: checkout.bookTitle });
 
+    // If user has not purchased book
+    if (userPurchasedBook.length == 0) {
+
+      checkout.save().then(data => {
+          console.log("Success\n");
+          res.json(data);
+          // TODO: REFRESH UI!
+      }).catch(err => {
+          console.log("Error\n");
+          res.json({ message: err });
+      })
+
+    }
+    else {
+      console.log("Book has already been checked out.")
+    }
 
 })
 
