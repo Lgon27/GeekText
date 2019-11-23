@@ -30,8 +30,9 @@ class UserReview extends Component {
     this.changeRating = this.changeRating.bind(this);
 
     // TODO
-    // this.userLoginID = this.props.loginID;
-    this.userLoginID = "thoan006";  // Temporary hardcode until Login is settled
+    let params = queryString.parse(this.props.location.search)
+    this.userLoginID = params.userId;
+    // this.userLoginID = "thoan006";  // Temporary hardcode until Login is settled
 
     console.log("Login ID: " + this.userLoginID);
 
@@ -43,7 +44,7 @@ class UserReview extends Component {
         })
         .catch(function (error) {
             console.log(error)
-            alert('Could not find user details!')
+            console.log('Could not find user details!')
         })
   }
 

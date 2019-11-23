@@ -13,7 +13,7 @@ export class book_details extends Component {
 
     let params = queryString.parse(this.props.location.search)
     this.bookTitle = params.bookTitle;
-    
+    this.userID = params.userId;
   }
 
   componentDidMount() {
@@ -110,6 +110,7 @@ export class book_details extends Component {
                 <td colspan='2'>
                   <form style={{float:'left', width:'100%'}} action="/reviews" method="get">
                       <input type="hidden" name="bookTitle" value={this.bookTitle} />
+                      <input type="hidden" name="userId" value={this.userID} />
                       <input style={submitButtonStyle} type="submit" value="Create Customer Review" />
                   </form>
                 </td>
