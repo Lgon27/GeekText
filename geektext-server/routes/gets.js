@@ -10,6 +10,8 @@ const Save_for_later = require('../models/save_for_later')
 const PurchasedBooks = require('../models/purchasedbooks')
 const billing = require('../models/billing')
 const shipping = require('../models/shipping')
+const wishlist = require('../models/wishlist.model');
+const list = require('../models/list.model')
 
 router.get('/users', async (req, res) => {
     try {
@@ -158,6 +160,28 @@ router.get('/billing/:loginID', async (req, res) => {
         res.json({ message: err });
     }
 })
+router.get('/wish/:id', function(req,res){
+    let id = req.params.id;
+    var search= {wishlist_list : id}
+    wishlist.find(search,function(err, ans) {
+        res.json(ans);
+    });
+  });
+router.get('/list/:id', function(req,res){
+
+ let id = req.params.id;
+  var search= {list_user : id};
+  list.find(search,function(err, ans) {
+    res.json(ans);
+   });
+});
+router.get('/books/:id', function(req,res){
+    let id= req.params.id;
+    Books.findById(id,function(err,ans){
+        res.json(ans);
+    });
+}); 
+
 
 router.get('/specificUser/:loginID', async (req, res) => {
     try {
