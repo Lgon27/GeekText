@@ -74,7 +74,7 @@ class Cart extends Component{
             }).catch(function (error) {
                 console.log(error)
             })
-            //window.location.reload()
+            window.location.reload()
 
     }
 
@@ -99,7 +99,7 @@ class Cart extends Component{
             }).catch(function (error) {
                 console.log(error)
             })
-            //window.location.reload()
+            window.location.reload()
     }
 
 
