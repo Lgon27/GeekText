@@ -8,7 +8,7 @@ import { object } from "prop-types";
 export class books_by extends Component {
   constructor(props) {
     super(props);
-    this.state = { books: [], sortedBy: "" };
+    this.state = { books: [] };
   }
 
   componentDidMount() {

@@ -8,7 +8,7 @@ import { object } from "prop-types";
 export class book_details extends Component {
   constructor(props) {
     super(props);
-    this.state = { books: [], sortedBy: "" };
+    this.state = { books: [] };
   }
 
   componentDidMount() {
@@ -95,7 +95,10 @@ export class book_details extends Component {
               </tr>
               <tr>
                 <th scope="row">Comments</th>
-                <td>Excellent book. It is both scholarly and entertaining.</td>
+                <td>
+                  Excellent book. It is both scholarly and entertaining, by
+                  Anonimous. <a href="/reviews">more...</a>
+                </td>
               </tr>
               <tr>
                 <th scope="row">Books by</th>
