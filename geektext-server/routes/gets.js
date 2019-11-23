@@ -93,6 +93,19 @@ router.get('/purchasedbooks', async (req, res) => {
     }
 })
 
+// GET ALL BOOKS
+router.get('/bookDetails', async (req, res) => {
+    try {
+        var bookDisplayName = req.query.bookTitle; // $_GET["bookTitle"]
+        const books = await Books.find({title:bookDisplayName});
+        console.log("Finding book: ", bookDisplayName, " Book Details: ", books);
+        res.json(books);
+
+    } catch (err) {
+        res.json({ message: err });
+    }
+})
+
 router.get('/reviews', async (req, res) => {
     try {
         // console.log("Calling Route")

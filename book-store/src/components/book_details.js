@@ -4,11 +4,16 @@ import rating from "./rating.png";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { object } from "prop-types";
+import queryString from 'query-string';
 
 export class book_details extends Component {
   constructor(props) {
     super(props);
     this.state = { books: [], sortedBy: "" };
+
+    let params = queryString.parse(this.props.location.search)
+    this.bookTitle = params.bookTitle;
+    this.userID = params.userId;
   }
 
   componentDidMount() {
@@ -24,6 +29,13 @@ export class book_details extends Component {
   render() {
     const books = this.state.books;
     const found = books.find(price => (price = 15));
+
+    const submitButtonStyle = {
+      color: '#FFFFFF',
+      background: '#ff5959',
+      height: '50px',
+      width: '100%'
+    };
 
     return (
       <div className="Book">
@@ -91,7 +103,16 @@ export class book_details extends Component {
               <tr>
                 <th scope="row">Book rating</th>
                 <td>
-                  <img src={rating} className="Rating" alt="rating" />
+                  <img src={rating} className="Rating" alt="rating" /> <br/>
+                </td>
+              </tr>
+              <tr>
+                <td colspan='2'>
+                  <form style={{float:'left', width:'100%'}} action="/reviews" method="get">
+                      <input type="hidden" name="bookTitle" value={this.bookTitle} />
+                      <input type="hidden" name="userId" value={this.userID} />
+                      <input style={submitButtonStyle} type="submit" value="Create Customer Review" />
+                  </form>
                 </td>
               </tr>
               <tr>
