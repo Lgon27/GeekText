@@ -20,6 +20,9 @@ app.use("/get", getRoutes);
 const postRoutes = require("./routes/posts");
 app.use("/post", postRoutes);
 
+const deleteRoutes = require("./routes/deletes")
+app.use("/delete", deleteRoutes)
+
 const patchRoutes = require('./routes/patches')
 app.use('/patch', patchRoutes)
 

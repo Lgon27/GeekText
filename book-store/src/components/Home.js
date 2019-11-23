@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import StarRatingComponent from 'react-star-rating-component';
-import {BookDetails} from './BookDetails.js';
+import { BookDetails } from './BookDetails.js';
 
 import { Link } from "react-router-dom";
 import "./book_style.css";
@@ -14,6 +14,10 @@ class Home extends Component {
     this.sortByAuthorAsc = this.sortByAuthorAsc.bind(this);
     this.sortByDateAsc = this.sortByDateAsc.bind(this);
     this.sortByRatingAsc = this.sortByRatingAsc.bind(this);
+
+    if (this.props.loginID != null) {
+      console.log('Received: ' + this.props.loginID)
+    }
   }
 
   componentDidMount() {
@@ -38,16 +42,16 @@ class Home extends Component {
         cover_image: book.cover_image,
         author: book.author,
         price: book.price,
-        quantity:  1,
+        quantity: 1,
       })
     })
-    .then( (response) => response.json())
-    .then( (responseJson) => {
-          alert("Book Added to Cart!")
-     })
-     .catch((error) => {
-          console.error(error);
-     });
+      .then((response) => response.json())
+      .then((responseJson) => {
+        alert("Book Added to Cart!")
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   sortByPriceAsc() {
