@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { object } from "prop-types";
 
-export class mitchell extends Component {
+export class books_by extends Component {
   constructor(props) {
     super(props);
     this.state = { books: [], sortedBy: "" };
@@ -23,7 +23,6 @@ export class mitchell extends Component {
 
   render() {
     const books = this.state.books;
-    const found = books.find(price => (price = 15));
 
     return (
       <div className="Book">
@@ -53,4 +52,4 @@ export class mitchell extends Component {
   }
 }
 
-export default mitchell;
+export default books_by;

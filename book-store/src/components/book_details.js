@@ -23,7 +23,6 @@ export class book_details extends Component {
 
   render() {
     const books = this.state.books;
-    const found = books.find(price => (price = 15));
 
     return (
       <div className="Book">
@@ -103,7 +102,7 @@ export class book_details extends Component {
                 <td>
                   <a
                     className="Book-link"
-                    href="/mitchell"
+                    href="/books_by"
                     rel="noopener noreferrer"
                   >
                     Margaret Mitchell

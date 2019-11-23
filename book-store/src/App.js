@@ -5,7 +5,7 @@ import Home from "./components/Home";
 import Cart from "./components/Cart";
 import Reviews from "./components/UserReview";
 import book_details from "./components/book_details";
-import mitchell from "./components/mitchell";
+import books_by from "./components/books_by";
 
 class App extends Component {
   render() {
@@ -18,7 +18,7 @@ class App extends Component {
             <Route path="/cart" component={Cart} />
             <Route path="/reviews" component={Reviews} />
             <Route path="/book_details" component={book_details} />
-            <Route path="/mitchell" component={mitchell} />
+            <Route path="/books_by" component={books_by} />
           </Switch>
         </div>
       </BrowserRouter>
