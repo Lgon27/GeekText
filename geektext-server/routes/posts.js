@@ -7,6 +7,7 @@ const userSchema = require('../models/users')
 const bookSchema = require('../models/books')
 const cartItemSchema = require('../models/cartItems')
 const userReviewSchema = require('../models/reviews')
+const checkoutSchema = require('../models/purchasedbooks')
 const billingSchema = require('../models/billing')
 const shippingSchema = require('../models/shipping')
 const saveLaterSchema = require('../models/save_for_later')
@@ -14,7 +15,7 @@ const saveLaterSchema = require('../models/save_for_later')
 
 
 
-//post a user 
+//post a user
 router.post('/user', (req, res) => {
     const user = new userSchema({
         loginID: req.body.loginID,
@@ -122,6 +123,27 @@ router.post('/save_for_later', (req, res) => {
     }).catch(err => {
         res.json({ message: err });
     })
+
+})
+
+router.post('/checkout', (req, res) => {
+
+    const checkout = new checkoutSchema({
+        user_id: req.body.user_id,
+        bookTitle: req.body.bookTitle
+    })
+
+    console.log(checkout);
+
+    checkout.save().then(data => {
+        console.log("Success\n");
+        res.json(data);
+        // TODO: REFRESH UI!
+    }).catch(err => {
+        console.log("Error\n");
+        res.json({ message: err });
+    })
+
 
 })
 
