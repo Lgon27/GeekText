@@ -11,6 +11,7 @@ import mitchell from "./components/mitchell";
 import UserManagement from './components/UserManagement/UserManagement';
 import LogInManagement from './components/UserManagement/LoginManagement';
 
+import books_by from "./components/books_by";
 
 class App extends Component {
   render() {
@@ -28,6 +29,7 @@ class App extends Component {
             <Route path="/signup" component={UserSignup} />
             <Route path="/home:loginID" exact component={Home} />
             <Route path="/management" component={LogInManagement} />
+            <Route path="/books_by" component={books_by} />
           </Switch>
         </div>
       </BrowserRouter>
