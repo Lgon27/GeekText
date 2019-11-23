@@ -110,7 +110,7 @@ class Cart extends Component{
      checkout (cartItems) {
        cartItems.map(cartItem => (
          axios.post('http://localhost:3000/post/checkout/', {
-             user_id : "thoan006",
+             user_id : "James23",
              bookTitle : cartItem.title,
          }).then(response => {
              console.log('checkout sent')
