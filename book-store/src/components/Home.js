@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import StarRatingComponent from 'react-star-rating-component';
 import { BookDetails } from './BookDetails.js';
-
+import axios from 'axios';
 import { Link } from "react-router-dom";
 import "./book_style.css";
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { books: [], sortedBy: "" };
+    this.state = { books: [], sortedBy: "" ,list: []};
     this.sortByPriceAsc = this.sortByPriceAsc.bind(this);
     this.sortByAuthorAsc = this.sortByAuthorAsc.bind(this);
     this.sortByDateAsc = this.sortByDateAsc.bind(this);
     this.sortByRatingAsc = this.sortByRatingAsc.bind(this);
-
+    this.add = this.add.bind(this);
     if (this.props.loginID != null) {
       console.log('Received: ' + this.props.loginID)
     }
@@ -26,8 +26,46 @@ class Home extends Component {
       .then(books => {
         this.setState({ books }); // Notify your component that products have been fetched
       });
-    console.log(this.state.books);
+    console.log(this.state.books); 
+          axios.get("http://localhost:3000/get/list/test")
+           .then(response => {
+           this.setState({ list: response.data});
+           })
+          .catch(function (error){
+          console.log(error);
+    })
   }
+ add(book,list)
+      {
+        fetch('http://localhost:3000/post/wish/add' , {
+            method: 'POST',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                wishlist_book:book._id,
+                wishlist_list:list,
+                title:book.title,
+                cover_image:book.cover_image,
+                summary:book.summary,
+                genre:book.genre,
+                author:book.author,
+                price:book.price,
+                publish_date:book.publish_date,
+                author_bio:book.author_bio
+            })
+        })
+        .then( (response) => response.json())
+            .then( (responseJson) => {
+                alert("Book Added to Wishlist!")
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        
+      
+    }
 
   addToCart(book) {
     fetch("http://localhost:3000/post/cart", {
@@ -193,6 +231,24 @@ class Home extends Component {
                   value={book.rating}
                 />
               </div>
+             <ul>
+      {
+             <div class = "row">
+                    {
+                      this.state.list.map(lists =>{
+                      return(
+                        <div class= "col"><button type="button" class="btn btn-primary"  onClick={() => this.add(book,lists._id)}>Add to wishlist {lists.list_name}</button></div>
+
+                      );
+                      })
+                    }
+
+                </div>
+                
+
+        
+        })}
+    </ul>
             </div>
           ))}
         </div>
