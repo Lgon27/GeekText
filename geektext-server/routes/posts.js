@@ -11,6 +11,8 @@ const checkoutSchema = require('../models/purchasedbooks')
 const billingSchema = require('../models/billing')
 const shippingSchema = require('../models/shipping')
 const saveLaterSchema = require('../models/save_for_later')
+const wishlist = require('../models/wishlist.model');
+const list = require('../models/list.model')
 
 
 
@@ -200,5 +202,71 @@ router.post('/reviews', (req, res) => {
 
 
 })
+router.post('/wish/add',(req,res) => {
+    const ans = new wishlist({
+        wishlist_book:req.body.wishlist_book,
+        wishlist_list:req.body.wishlist_list,
+        title:req.body.title,
+        cover_image:req.body.cover_image,
+        summary:req.body.summary,
+        genre:req.body.genre,
+        author:req.body.author,
+        price:req.body.price,
+        publish_date:req.body.publish_date,
+        author_bio:req.body.author_bio
+    })
+    ans.save()
+    .then(ans => {
+      res.status(200).json({'ans' : 'ans added'});
+    })
+    .catch(err => {
+      res.status(400).send('failed add');
+    });
+})
+
+router.post('/wish/update/:id',(req,res) => {
+    let id = req.params.id;
+    wishlist.findById(id, function(err, data){
+        if (!data){
+            res.status(404).send("data is not found");
+          }
+          else{
+            data.wishlist_book = req.body.wishlist_book;
+            data.wishlist_description = req.body.wishlist_description;
+            data.wishlist_list = req.body.wishlist_list;
+            data.save().then(data => {
+              res.json('Updated');
+            })
+            .catch(err => {
+              res.status(400).send("Update not completed");
+            });
+          }
+        });
+      });
+router.post('/list/add',(req,res) =>{
+    let ans = new list(req.body);
+  ans.save()
+    .then(ans => {
+      res.status(200).json({'ans' : 'ans added'});
+    })
+    .catch(err => {
+      res.status(400).send('failed add');
+    });
+})
+
+
+router.post('/list/add/:user/:id',(req,res) =>{
+    let user = req.params.user;
+    let id = req.params.id;
+    let ans = new list({list_name: id , list_user: user})
+    ans.save()
+      .then(ans => {
+        res.status(200).json({'ans' : 'ans added'});
+      })
+      .catch(err => {
+        res.status(400).send('failed add');
+      });
+})
+
 
 module.exports = router;
