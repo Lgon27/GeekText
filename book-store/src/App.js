@@ -9,6 +9,8 @@ import Reviews from './components/UserReview'
 import book_details from "./components/book_details";
 import UserManagement from './components/UserManagement/UserManagement';
 import LogInManagement from './components/UserManagement/LoginManagement';
+import Wishlist1 from './components/Wishlist1'
+import EditWishlist from './components/EditWishlist'
 
 import books_by from "./components/books_by";
 
@@ -29,6 +31,12 @@ class App extends Component {
             <Route path="/home:loginID" exact component={Home} />
             <Route path="/management" component={LogInManagement} />
             <Route path="/books_by" component={books_by} />
+            <Route path='/wishlist/:id' render={(props) =>(
+                <Wishlist1 user = {this.state.user} {...props} />
+                )}/>
+            <Route exact path ='/Edit_Wishlist' render={(props) =>(
+                <EditWishlist user = {this.state.user} {...props}/>
+                )}/> 
           </Switch>
         </div>
       </BrowserRouter>
