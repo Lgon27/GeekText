@@ -7,7 +7,6 @@ import LogIn from './components/UserManagement/LogIn'
 import UserSignup from './components/UserManagement/UserSignup'
 import Reviews from './components/UserReview'
 import book_details from "./components/book_details";
-import mitchell from "./components/mitchell";
 import UserManagement from './components/UserManagement/UserManagement';
 import LogInManagement from './components/UserManagement/LoginManagement';
 
@@ -24,7 +23,7 @@ class App extends Component {
             <Route path="/cart" component={Cart} />
             <Route path="/reviews" component={Reviews} />
             <Route path="/book_details" component={book_details} />
-            <Route path="/mitchell" component={mitchell} />
+ 
             <Route path="/login" component={LogIn} />
             <Route path="/signup" component={UserSignup} />
             <Route path="/home:loginID" exact component={Home} />
