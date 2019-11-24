@@ -15,10 +15,11 @@ import EditWishlist from './components/EditWishlist'
 import books_by from "./components/books_by";
 
 class App extends Component {
-     this.state= {
+     state= {
       list:[],
       user:"test"
     }
+    
   render() {
     return (
       <BrowserRouter>
