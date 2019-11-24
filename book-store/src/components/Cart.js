@@ -100,9 +100,18 @@ class Cart extends Component{
             window.location.reload()
     }
     
-    calculateTotal() {
-
-    }
+    checkout (cartItems) {
+       cartItems.map(cartItem => (
+         axios.post('http://localhost:3000/post/checkout/', {
+             user_id : cartItem.user_id,
+             bookTitle : cartItem.title,
+         }).then(response => {
+             console.log('checkout sent')
+         }).catch(function (error) {
+             console.log(error)
+         })
+       ));
+     }
     
 
     handleChecked () {
