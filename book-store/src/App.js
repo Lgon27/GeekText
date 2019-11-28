@@ -15,8 +15,16 @@ import EditWishlist from './components/EditWishlist'
 import books_by from "./components/books_by";
 
 class App extends Component {
+<<<<<<< HEAD
 
 
+=======
+     state= {
+      list:[],
+      user:"test"
+    }
+    
+>>>>>>> 1d57ddf2c583d18854deca8fadeddc6222d76458
   render() {
     return (
       <BrowserRouter>

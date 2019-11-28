@@ -35,6 +35,15 @@
 .cart{
     margin-top:40px;
 }
+.btn-secondary {
+    height: 40px;
+    display: flex;
+    line-height: 34px;
+    border-radius: 8px;
+    margin-left: 14px;
+    background-color: deepskyblue!;
+    padding: 0 10px 0 0;
+}
 .collection .collection-item{
     display: flex;
 }
@@ -58,12 +67,12 @@
     margin-top: 5%; 
     padding: 0px 8px 0px 8px;
     width: fit-content; 
-    background: #f080805e;
+    background: none;
     border-radius: 8px;
 }
 .sortButton{
     height: 36px;
-    background: #f080805e;
+    background: none;
     padding: 0px 12px 0px 12px;
     font-size: 14px;
     border-width: 0px 0px 0px 0px;
@@ -96,4 +105,8 @@ label {
     min-width: 80px;
     text-align: center;
     font-size: 14px;
+}
+.ratingSort .material-icons{
+    font-size: 1em;
+    color: gold;
 }
