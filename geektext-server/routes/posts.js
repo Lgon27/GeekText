@@ -14,13 +14,14 @@ const saveLaterSchema = require('../models/save_for_later')
 const wishlist = require('../models/wishlist.model');
 const list = require('../models/list.model')
 const PurchasedBooks = require('../models/purchasedbooks')
+const bcrypt = require('bcryptjs')
 
 
 //post a user
 router.post('/user', (req, res) => {
     const user = new userSchema({
         loginID: req.body.loginID,
-        loginPassword: req.body.loginPassword,
+        loginPassword: bcrypt.hashSync(req.body.loginPassword, 10),
         name: req.body.name,
         emailAddress: req.body.emailAddress,
         nickname: req.body.nickname
@@ -141,18 +142,18 @@ router.post('/checkout', async (req, res) => {
     // If user has not purchased book
     if (userPurchasedBook.length == 0) {
 
-      checkout.save().then(data => {
-          console.log("Success\n");
-          res.json(data);
-          // TODO: REFRESH UI!
-      }).catch(err => {
-          console.log("Error\n");
-          res.json({ message: err });
-      })
+        checkout.save().then(data => {
+            console.log("Success\n");
+            res.json(data);
+            // TODO: REFRESH UI!
+        }).catch(err => {
+            console.log("Error\n");
+            res.json({ message: err });
+        })
 
     }
     else {
-      console.log("Book has already been checked out.")
+        console.log("Book has already been checked out.")
     }
 
 })
@@ -210,70 +211,70 @@ router.post('/reviews', (req, res) => {
 
 
 })
-router.post('/wish/add',(req,res) => {
+router.post('/wish/add', (req, res) => {
     const ans = new wishlist({
-        wishlist_book:req.body.wishlist_book,
-        wishlist_list:req.body.wishlist_list,
-        title:req.body.title,
-        cover_image:req.body.cover_image,
-        summary:req.body.summary,
-        genre:req.body.genre,
-        author:req.body.author,
-        price:req.body.price,
-        publish_date:req.body.publish_date,
-        author_bio:req.body.author_bio
+        wishlist_book: req.body.wishlist_book,
+        wishlist_list: req.body.wishlist_list,
+        title: req.body.title,
+        cover_image: req.body.cover_image,
+        summary: req.body.summary,
+        genre: req.body.genre,
+        author: req.body.author,
+        price: req.body.price,
+        publish_date: req.body.publish_date,
+        author_bio: req.body.author_bio
     })
     ans.save()
-    .then(ans => {
-      res.status(200).json({'ans' : 'ans added'});
-    })
-    .catch(err => {
-      res.status(400).send('failed add');
-    });
+        .then(ans => {
+            res.status(200).json({ 'ans': 'ans added' });
+        })
+        .catch(err => {
+            res.status(400).send('failed add');
+        });
 })
 
-router.post('/wish/update/:id',(req,res) => {
+router.post('/wish/update/:id', (req, res) => {
     let id = req.params.id;
-    wishlist.findById(id, function(err, data){
-        if (!data){
+    wishlist.findById(id, function (err, data) {
+        if (!data) {
             res.status(404).send("data is not found");
-          }
-          else{
+        }
+        else {
             data.wishlist_book = req.body.wishlist_book;
             data.wishlist_description = req.body.wishlist_description;
             data.wishlist_list = req.body.wishlist_list;
             data.save().then(data => {
-              res.json('Updated');
+                res.json('Updated');
             })
-            .catch(err => {
-              res.status(400).send("Update not completed");
-            });
-          }
-        });
-      });
-router.post('/list/add',(req,res) =>{
-    let ans = new list(req.body);
-  ans.save()
-    .then(ans => {
-      res.status(200).json({'ans' : 'ans added'});
-    })
-    .catch(err => {
-      res.status(400).send('failed add');
+                .catch(err => {
+                    res.status(400).send("Update not completed");
+                });
+        }
     });
+});
+router.post('/list/add', (req, res) => {
+    let ans = new list(req.body);
+    ans.save()
+        .then(ans => {
+            res.status(200).json({ 'ans': 'ans added' });
+        })
+        .catch(err => {
+            res.status(400).send('failed add');
+        });
 })
 
 
-router.post('/list/add/:user/:id',(req,res) =>{
+router.post('/list/add/:user/:id', (req, res) => {
     let user = req.params.user;
     let id = req.params.id;
-    let ans = new list({list_name: id , list_user: user})
+    let ans = new list({ list_name: id, list_user: user })
     ans.save()
-      .then(ans => {
-        res.status(200).json({'ans' : 'ans added'});
-      })
-      .catch(err => {
-        res.status(400).send('failed add');
-      });
+        .then(ans => {
+            res.status(200).json({ 'ans': 'ans added' });
+        })
+        .catch(err => {
+            res.status(400).send('failed add');
+        });
 })
 
 

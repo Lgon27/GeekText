@@ -4,6 +4,7 @@ const users = require('../models/users')
 const billing = require('../models/billing')
 const billingSchema = require('../models/billing')
 const shippingSchema = require('../models/shipping')
+const bcrypt = require('bcryptjs')
 
 //Update user name
 router.patch('/name/:loginID', async (req, res) => {
@@ -18,7 +19,7 @@ router.patch('/name/:loginID', async (req, res) => {
 //Update user password
 router.patch('/password/:loginID', async (req, res) => {
     try {
-        const updatedPost = await users.updateOne({ loginID: req.params.loginID }, { $set: { loginPassword: req.body.loginPassword } })
+        const updatedPost = await users.updateOne({ loginID: req.params.loginID }, { $set: { loginPassword: bcrypt.hashSync(req.body.loginPassword, 10) } })
         res.send(updatedPost)
     } catch (err) {
         res.json({ message: err })

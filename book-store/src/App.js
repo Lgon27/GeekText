@@ -15,10 +15,8 @@ import EditWishlist from './components/EditWishlist'
 import books_by from "./components/books_by";
 
 class App extends Component {
-     this.state= {
-      list:[],
-      user:"test"
-    }
+
+
   render() {
     return (
       <BrowserRouter>
@@ -29,18 +27,18 @@ class App extends Component {
             <Route path="/cart" component={Cart} />
             <Route path="/reviews" component={Reviews} />
             <Route path="/book_details" component={book_details} />
- 
+
             <Route path="/login" component={LogIn} />
             <Route path="/signup" component={UserSignup} />
             <Route path="/home:loginID" exact component={Home} />
             <Route path="/management" component={LogInManagement} />
             <Route path="/books_by" component={books_by} />
-            <Route path='/wishlist/:id' render={(props) =>(
-                <Wishlist1 user = {this.state.user} {...props} />
-                )}/>
-            <Route exact path ='/Edit_Wishlist' render={(props) =>(
-                <EditWishlist user = {this.state.user} {...props}/>
-                )}/> 
+            <Route path='/wishlist/:id' render={(props) => (
+              <Wishlist1 user={'James23'} {...props} />
+            )} />
+            <Route exact path='/Edit_Wishlist' render={(props) => (
+              <EditWishlist user={'James23'} {...props} />
+            )} />
           </Switch>
         </div>
       </BrowserRouter>

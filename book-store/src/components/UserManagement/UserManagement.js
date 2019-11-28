@@ -49,6 +49,14 @@ class UserManagement extends Component {
         this.handleZipCodeChange = this.handleZipCodeChange.bind(this)
         this.handleAddressSubmit = this.handleAddressSubmit.bind(this)
 
+        this.handleFirstNameChange = this.handleFirstNameChange.bind(this)
+        this.HandleLastNameChange = this.HandleLastNameChange.bind(this)
+        this.handleEmailChange = this.handleEmailChange.bind(this)
+
+        this.handleNicknameChange = this.handleNicknameChange.bind(this)
+        this.updateUser = this.updateUser.bind(this)
+        this.handleSubmitUserUpdate = this.handleSubmitUserUpdate.bind(this)
+
     }
 
     componentWillReceiveProps() {
@@ -414,6 +422,57 @@ class UserManagement extends Component {
 
     }
 
+    handleFirstNameChange(event) {
+        this.setState({
+            firstName: event.target.value
+        })
+    }
+    HandleLastNameChange(event) {
+        this.setState({
+            lastName: event.target.value
+        })
+    }
+    handleEmailChange(event) {
+        this.setState({
+            emailAddress: event.target.value
+        })
+    }
+
+    handleNicknameChange(event) {
+        this.setState({
+            nickname: event.target.value
+        })
+    }
+
+    handleSubmitUserUpdate(event) {
+        event.preventDefault()
+        this.updateUser()
+        console.log('submitted')
+    }
+
+    updateUser() {
+        Axios.patch(`http://localhost:3000/patch/updateAll/${this.state.loginID}`, {
+            name: this.state.firstName + " " + this.state.lastName,
+            emailAddress: this.state.emailAddress,
+            nickname: this.state.nickname
+        }).then(response => {
+            console.log('user update')
+            this.setState({
+                name: this.state.firstName,
+                emailAddress: this.state.emailAddress,
+                nickname: this.state.nickname
+            })
+        }).catch(function (error) {
+            console.log(error)
+        })
+        alert('User Updated')
+        this.setState({
+            return: true
+        })
+
+        this.forceUpdate();
+    }
+
 
 
 
@@ -424,8 +483,8 @@ class UserManagement extends Component {
         if (this.state.editController === 0) {
             return (
                 <div>
-                    <h3>User Information for {this.state.loginID} </h3>
-                    <p><b>{this.state.name}</b></p>
+                    <h3>User Information for {this.state.loginID}  </h3>
+                    <p><b>{this.state.name} {this.state.lastName}</b></p>
                     <p> <u> NickName:</u> {this.state.nickname}</p>
                     <p> <u> Email Address:</u> {this.state.emailAddress}</p>
                     <div>
@@ -440,7 +499,6 @@ class UserManagement extends Component {
                         ))}
                     </div>
                     <div>
-                        <Button variant="contained" color="primary" onClick={this.setEditUserFlag}>Edit User Information</Button>
                     </div>
                     <div>
                         <Button variant="contained" color="primary" onClick={this.setEditLoginFlag}>Change Password</Button>
@@ -506,6 +564,30 @@ class UserManagement extends Component {
                                 </span>
                             </div>
                             <input type="submit" value="Add Address" />
+                        </form>
+                        <form onSubmit={this.handleSubmitUserUpdate}>
+                            <h3>Edit User Info</h3>
+                            <div>
+                                <span className='textform'>
+                                    <TextField label="New First Name" onChange={this.handleFirstNameChange} />
+                                </span>
+                            </div>
+                            <div>
+                                <span className='textform'>
+                                    <TextField label="New Last Name" onChange={this.HandleLastNameChange} />
+                                </span>
+                            </div>
+                            <div>
+                                <span className='textform'>
+                                    <TextField label="New Nickname" onChange={this.handleNicknameChange} />
+                                </span>
+                            </div>
+                            <div>
+                                <span className='textform'>
+                                    <TextField label="New Email Address" onChange={this.handleEmailChange} />
+                                </span>
+                            </div>
+                            <input type="submit" value="Update User" />
                         </form>
                     </div>
                 </div >

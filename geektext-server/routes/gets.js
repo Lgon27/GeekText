@@ -12,6 +12,7 @@ const billing = require('../models/billing')
 const shipping = require('../models/shipping')
 const wishlist = require('../models/wishlist.model');
 const list = require('../models/list.model')
+const bcrypt = require('bcryptjs')
 
 router.get('/users', async (req, res) => {
     try {
@@ -72,9 +73,7 @@ router.get('/purchasedbooks', async (req, res) => {
     try {
         var userId = req.query.user_id; // $_GET["user_id"]
         var bookDisplayName = req.query.bookTitle; // $_GET["bookTitle"]
-
         let userPurchasedBook = await PurchasedBooks.find({ user_id: userId, bookTitle: bookDisplayName });
-
         // If user has not purchased book
         if (userPurchasedBook.length == 0) {
             // Send some message back saying user hasn't purchased
@@ -99,7 +98,7 @@ router.get('/purchasedbooks', async (req, res) => {
 router.get('/bookDetails', async (req, res) => {
     try {
         var bookDisplayName = req.query.bookTitle; // $_GET["bookTitle"]
-        const books = await Books.find({title:bookDisplayName});
+        const books = await Books.find({ title: bookDisplayName });
         console.log("Finding book: ", bookDisplayName, " Book Details: ", books);
         res.json(books);
 
@@ -113,9 +112,7 @@ router.get('/reviews', async (req, res) => {
         // console.log("Calling Route")
         var bookDisplayName = req.query.bookTitle; // $_GET["bookTitle"]
         // console.log(bookDisplayName)
-
         let userReviews = await Reviews.find({ bookTitle: bookDisplayName }).sort({ $natural: -1 });
-
         // If no reviews have been left
         if (userReviews.length == 0) {
             userReviews = [{
@@ -127,7 +124,6 @@ router.get('/reviews', async (req, res) => {
                 __v: 0
             }]
         }
-
         res.json(userReviews)
     } catch (err) {
         res.json({ message: err });
@@ -140,7 +136,7 @@ router.get('/users/:loginID/:loginPassword', async (req, res) => {
         const userData = await users.find({ "loginID": req.params.loginID })
         var count = Object.keys(userData).length
 
-        if (count > 0 && req.params.loginPassword == userData[0].loginPassword) {
+        if (count > 0 && bcrypt.compareSync(req.params.loginPassword, userData[0].loginPassword)) {
             res.status(202).send(userData)
         }
         else {
@@ -160,27 +156,27 @@ router.get('/billing/:loginID', async (req, res) => {
         res.json({ message: err });
     }
 })
-router.get('/wish/:id', function(req,res){
+router.get('/wish/:id', function (req, res) {
     let id = req.params.id;
-    var search= {wishlist_list : id}
-    wishlist.find(search,function(err, ans) {
+    var search = { wishlist_list: id }
+    wishlist.find(search, function (err, ans) {
         res.json(ans);
     });
-  });
-router.get('/list/:id', function(req,res){
-
- let id = req.params.id;
-  var search= {list_user : id};
-  list.find(search,function(err, ans) {
-    res.json(ans);
-   });
 });
-router.get('/books/:id', function(req,res){
-    let id= req.params.id;
-    Books.findById(id,function(err,ans){
+router.get('/list/:id', function (req, res) {
+
+    let id = req.params.id;
+    var search = { list_user: id };
+    list.find(search, function (err, ans) {
         res.json(ans);
     });
-}); 
+});
+router.get('/books/:id', function (req, res) {
+    let id = req.params.id;
+    Books.findById(id, function (err, ans) {
+        res.json(ans);
+    });
+});
 
 
 router.get('/specificUser/:loginID', async (req, res) => {

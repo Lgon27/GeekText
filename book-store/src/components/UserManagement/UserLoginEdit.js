@@ -63,27 +63,22 @@ class userLoginEdit extends Component {
 
 
         if (this.verifyPassword(this.state.loginPassword)) {
-            if (this.state.oldPasswordConfirm === this.state.oldPassword) {
-                if (this.state.loginPassword === this.state.loginConfirm) {
-                    Axios.patch(`http://localhost:3000/patch/updateLogin/${this.state.loginID}`, {
-                        loginID: this.state.loginID,
-                        loginPassword: this.state.loginPassword
-                    }).then(response => {
-                        console.log('user update')
-                    }).catch(function (error) {
-                        console.log(error)
-                    })
-                    alert('User Updated')
-                    this.setState({
-                        return: true
-                    })
-                }
-                else {
-                    alert('Passwords must match')
-                }
+            if (this.state.loginPassword === this.state.loginConfirm) {
+                Axios.patch(`http://localhost:3000/patch/updateLogin/${this.state.loginID}`, {
+                    loginID: this.state.loginID,
+                    loginPassword: this.state.loginPassword
+                }).then(response => {
+                    console.log('user update')
+                }).catch(function (error) {
+                    console.log(error)
+                })
+                alert('User Updated')
+                this.setState({
+                    return: true
+                })
             }
             else {
-                alert('Incorrect Password')
+                alert('Passwords must match')
             }
         } else {
             alert('Password must contain a number, a special character, and both lowercase and uppercase letters\npassword must be at least 10 digits long')
@@ -123,9 +118,6 @@ class userLoginEdit extends Component {
                         <form onSubmit={this.handleSubmit}>
                             <h3>Edit Password for {this.state.loginID}</h3>
                             <div>
-                                <span className='textform'>
-                                    <TextField label="Current Password" type="password" onChange={this.handleOldPassChange} />
-                                </span>
                             </div>
                             <div>
                                 <span className='textform'>
